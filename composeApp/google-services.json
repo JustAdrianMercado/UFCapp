@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "713338641889",
+    "project_id": "proyectoprogra-4fd2a",
+    "storage_bucket": "proyectoprogra-4fd2a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713338641889:android:7cffbd8d6feea7a13d86a0",
+        "android_client_info": {
+          "package_name": "com.ucb.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_SoGafmnK-0WqGW14rYfvmq1nmUSLjT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

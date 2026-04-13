@@ -1,0 +1,70 @@
+package com.ucb.app.crypto.presentation.screen
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import com.ucb.app.crypto.presentation.composable.CryptoContent
+import com.ucb.app.crypto.presentation.state.CryptoEffect
+import com.ucb.app.crypto.presentation.state.CryptoEvent
+import com.ucb.app.crypto.presentation.viewmodel.CryptoViewModel
+import org.koin.compose.viewmodel.koinViewModel
+
+@Composable
+fun CryptoScreen(
+    viewModel: CryptoViewModel = koinViewModel()
+) {
+    val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(viewModel) {
+        viewModel.onEvent(CryptoEvent.OnLoad)
+
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is CryptoEffect.ShowError -> {
+                    // Aquí luego puedes mostrar Snackbar o mensaje
+                    println(effect.message)
+                }
+            }
+        }
+    }
+
+    when {
+        state.isLoading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        state.cryptos.isNotEmpty() -> {
+            CryptoContent(state.cryptos)
+        }
+
+        state.error != null -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Error: ${state.error}")
+            }
+        }
+
+        else -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("No hay datos disponibles")
+            }
+        }
+    }
+}
