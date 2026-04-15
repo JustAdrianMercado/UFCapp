@@ -16,7 +16,7 @@ actual class FirebaseManager actual constructor() {
             println("Firebase Android: Error - ${e.message}")
         }
     }
-/*
+
     actual suspend fun getData(path: String): String? {
         return try {
             val snapshot = database.child(path).get().await()
@@ -30,6 +30,4 @@ actual class FirebaseManager actual constructor() {
             null
         }
     }
-
- */
 }

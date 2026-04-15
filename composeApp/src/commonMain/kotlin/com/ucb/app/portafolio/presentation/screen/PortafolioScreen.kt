@@ -10,10 +10,12 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ucb.app.portafolio.presentation.state.PortafolioEffect
 import com.ucb.app.portafolio.presentation.state.PortafolioEvent
 import com.ucb.app.portafolio.presentation.viewmodel.PortafolioViewModel
 import org.koin.compose.viewmodel.koinViewModel
@@ -24,13 +26,23 @@ fun PortafolioScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
+    LaunchedEffect(viewModel) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is PortafolioEffect.ShowMessage -> {
+                    println(effect.message)
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text("Guardar dato en Firebase")
+        Text("Guardar y leer dato en Firebase")
 
         OutlinedTextField(
             value = uiState.path,
@@ -57,6 +69,15 @@ fun PortafolioScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Guardar")
+        }
+
+        Button(
+            onClick = {
+                viewModel.onEvent(PortafolioEvent.OnGetClicked)
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Leer")
         }
 
         if (uiState.isLoading) {

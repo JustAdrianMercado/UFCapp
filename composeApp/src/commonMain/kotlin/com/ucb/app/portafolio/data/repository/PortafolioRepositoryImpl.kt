@@ -10,4 +10,8 @@ class PortafolioRepositoryImpl(
     override suspend fun saveData(path: String, value: String) {
         firebaseManager.saveData(path, value)
     }
+
+    override suspend fun getData(path: String): String? {
+        return firebaseManager.getData(path)
+    }
 }

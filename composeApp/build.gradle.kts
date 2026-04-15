@@ -111,6 +111,7 @@ android {
 
 dependencies {
     implementation(libs.firebase.database)
+    implementation(libs.firebase.messaging)
     debugImplementation(libs.compose.uiTooling)
 
     add("kspAndroid", libs.androidx.room.compiler)
