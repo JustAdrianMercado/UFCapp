@@ -42,6 +42,7 @@ kotlin {
             implementation(libs.firebase.config)
             implementation(libs.firebase.database)
             implementation(libs.kotlinx.coroutines.play.services)
+            implementation(libs.androidx.work.runtime.ktx)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -72,6 +73,8 @@ kotlin {
 
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
+
+            implementation(project(":designsystem"))
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
