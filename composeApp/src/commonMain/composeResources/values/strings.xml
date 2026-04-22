@@ -11,4 +11,12 @@
     <string name="github_find">Find</string>
     <string name="github_title">Find your Github Avatar</string>
     <string name="github_text_hint">GitHub username</string>
+    <string name="app_name">KotlinProject</string>
+    <string name="portfolio_title">Firebase Portafolio</string>
+    <string name="label_path">Path</string>
+    <string name="label_value">Valor</string>
+    <string name="button_save">Guardar</string>
+    <string name="button_read">Leer</string>
+    <string name="success_message">Éxito: %1$s</string>
+    <string name="error_message">Error: %1$s</string>
 </resources>

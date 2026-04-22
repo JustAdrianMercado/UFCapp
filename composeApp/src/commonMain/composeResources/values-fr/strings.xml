@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Loco xml export: Android strings
+ Project: MobileApp
+ Locale: fr-FR, French (France)
+ Exported by: Adrian Mercado
+ Exported at: Wed, 22 Apr 2026 16:35:11 -0400
+-->
+<resources>
+    <string name="app_name">KotlinProject</string>
+    <string name="portfolio_title">Portefeuille Firebase</string>
+    <string name="label_path">Chemin</string>
+    <string name="label_value">Valeur</string>
+    <string name="button_save">Enregistrer</string>
+    <string name="button_read">Lire</string>
+    <string name="success_message">Succès : %1$s</string>
+    <string name="error_message">Erreur : %1$s</string>
+    <string name="explore">Explorer</string>
+    <string name="sign_in_title">Se connecter</string>
+    <string name="sign_in_email">Email</string>
+    <string name="sign_in_password">Mot de passe</string>
+    <string name="sign_in_btn">Se connecter</string>
+    <string name="login_title">Se connecter</string>
+    <string name="login_email">Adresse e-mail</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_btn">Se connecter</string>
+    <string name="github_find">Rechercher</string>
+    <string name="github_title">Trouvez votre avatar GitHub</string>
+    <string name="github_text_hint">Nom d\'utilisateur GitHub</string>
+</resources>
