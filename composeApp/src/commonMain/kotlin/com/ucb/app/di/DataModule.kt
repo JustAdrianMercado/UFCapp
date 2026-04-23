@@ -12,18 +12,19 @@ import com.ucb.app.movie.data.datasource.MovieRemoteDatasource
 import com.ucb.app.movie.data.repository.MovieRepositoryImpl
 import com.ucb.app.movie.data.service.MovieService
 import com.ucb.app.movie.domain.repository.MovieRepository
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.bind
-import org.koin.dsl.module
 import com.ucb.app.portafolio.data.datasource.FirebaseManager
 import com.ucb.app.portafolio.data.repository.PortafolioRepositoryImpl
 import com.ucb.app.portafolio.domain.repository.PortafolioRepository
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
+import org.koin.dsl.module
 
 val dataModule = module {
     singleOf(::GitHubApiService).bind<GithubRemoteDataSource>()
     singleOf(::GithubRepositoryImpl).bind<GithubRepository>()
-    singleOf(::MovieRepositoryImpl).bind<MovieRepository>()
+
     singleOf(::MovieService).bind<MovieRemoteDatasource>()
+    singleOf(::MovieRepositoryImpl).bind<MovieRepository>()
 
     singleOf(::CryptoService).bind<CryptoRemoteDataSource>()
     singleOf(::CryptoRepositoryImpl).bind<CryptoRepository>()

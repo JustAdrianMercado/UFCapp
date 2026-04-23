@@ -28,4 +28,6 @@ sealed class NavRoute {
 
     @Serializable
     object Portafolio : NavRoute()
+    @Serializable
+    object Config : NavRoute()
 }

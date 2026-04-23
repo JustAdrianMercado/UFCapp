@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ucb.app.config.presentation.screen.ConfigScreen
 import com.ucb.app.country.presentation.screen.CountryScreen
 import com.ucb.app.crypto.presentation.screen.CryptoScreen
 import com.ucb.app.fakestore.presentation.screen.StoreScreen
@@ -17,7 +18,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Portafolio
+        startDestination = NavRoute.Config
     ) {
         composable<NavRoute.Profile> {
         }
@@ -48,5 +49,10 @@ fun AppNavHost() {
         composable<NavRoute.Portafolio> {
             PortafolioScreen()
         }
+
+        composable<NavRoute.Config>{
+            ConfigScreen()
+        }
+
     }
 }
