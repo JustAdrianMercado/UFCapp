@@ -14,6 +14,7 @@ import com.ucb.app.product_detail.presentation.viewmodel.ProductDetailViewModel
 import com.ucb.app.signin.presentation.viewmodel.SigninViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import com.ucb.app.fights.presentation.viewmodel.FightListViewModel
 
 val presentationModule = module {
     viewModelOf(::ProductDetailViewModel)
@@ -28,4 +29,5 @@ val presentationModule = module {
     viewModelOf(::CountryViewModel)
     viewModelOf(::PortafolioViewModel)
     viewModelOf(::ConfigViewModel)
+    viewModelOf(::FightListViewModel)
 }

@@ -30,4 +30,6 @@ sealed class NavRoute {
     object Portafolio : NavRoute()
     @Serializable
     object Config : NavRoute()
+    @Serializable
+    object Fights : NavRoute()
 }

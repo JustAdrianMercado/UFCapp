@@ -11,6 +11,7 @@ import com.ucb.app.fakestore.presentation.screen.StoreScreen
 import com.ucb.app.github.presentation.screen.GithubScreen
 import com.ucb.app.movie.presentation.screen.MovieScreen
 import com.ucb.app.portafolio.presentation.screen.PortafolioScreen
+import com.ucb.app.fights.presentation.screen.FightListScreen
 
 @Composable
 fun AppNavHost() {
@@ -18,7 +19,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Config
+        startDestination = NavRoute.Fights
     ) {
         composable<NavRoute.Profile> {
         }
@@ -54,5 +55,8 @@ fun AppNavHost() {
             ConfigScreen()
         }
 
+        composable<NavRoute.Fights> {
+            FightListScreen()
+        }
     }
 }

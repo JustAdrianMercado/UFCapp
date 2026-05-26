@@ -18,6 +18,8 @@ import com.ucb.app.portafolio.domain.repository.PortafolioRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import com.ucb.app.fights.data.repository.FightRepositoryImpl
+import com.ucb.app.fights.domain.repository.FightRepository
 
 val dataModule = module {
     singleOf(::GitHubApiService).bind<GithubRemoteDataSource>()
@@ -31,4 +33,6 @@ val dataModule = module {
 
     singleOf(::FirebaseManager)
     singleOf(::PortafolioRepositoryImpl).bind<PortafolioRepository>()
+
+    singleOf(::FightRepositoryImpl).bind<FightRepository>()
 }

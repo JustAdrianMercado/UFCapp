@@ -10,6 +10,7 @@ import com.ucb.app.portafolio.domain.usecase.SavePortafolioDataUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import com.ucb.app.event.domain.usecase.RegisterAppEventUseCase
+import com.ucb.app.fights.domain.usecase.GetUpcomingFightsUseCase
 
 val domainModule = module {
     singleOf(::GetAvatarUseCase)
@@ -21,4 +22,5 @@ val domainModule = module {
     singleOf(::GetLocalConfigUseCase)
     singleOf(::SyncInitialConfigUseCase)
     singleOf(::RegisterAppEventUseCase)
+    singleOf(::GetUpcomingFightsUseCase)
 }
