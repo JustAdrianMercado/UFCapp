@@ -11,6 +11,10 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import com.ucb.app.event.domain.usecase.RegisterAppEventUseCase
 import com.ucb.app.fights.domain.usecase.GetUpcomingFightsUseCase
+import com.ucb.app.ranking.domain.usecase.GetRankingsUseCase
+import com.ucb.app.live.domain.usecase.GetLiveEventsUseCase
+import com.ucb.app.fighters.domain.usecase.GetFightersUseCase
+import com.ucb.app.profile.domain.usecase.GetProfileUseCase
 
 val domainModule = module {
     singleOf(::GetAvatarUseCase)
@@ -23,4 +27,8 @@ val domainModule = module {
     singleOf(::SyncInitialConfigUseCase)
     singleOf(::RegisterAppEventUseCase)
     singleOf(::GetUpcomingFightsUseCase)
+    singleOf(::GetRankingsUseCase)
+    singleOf(::GetLiveEventsUseCase)
+    singleOf(::GetFightersUseCase)
+    singleOf(::GetProfileUseCase)
 }

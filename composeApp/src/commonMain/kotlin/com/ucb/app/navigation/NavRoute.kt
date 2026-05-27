@@ -32,4 +32,12 @@ sealed class NavRoute {
     object Config : NavRoute()
     @Serializable
     object Fights : NavRoute()
+    @Serializable
+    object Ranking : NavRoute()
+    @Serializable
+    object Live : NavRoute()
+    @Serializable
+    object Fighters : NavRoute()
+
 }
+
