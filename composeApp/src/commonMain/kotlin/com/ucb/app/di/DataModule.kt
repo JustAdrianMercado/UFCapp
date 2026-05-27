@@ -21,6 +21,16 @@ import org.koin.dsl.module
 import com.ucb.app.fights.data.repository.FightRepositoryImpl
 import com.ucb.app.fights.domain.repository.FightRepository
 import com.ucb.app.fights.data.service.FightApiService
+import com.ucb.app.ranking.domain.repository.RankingRepository
+import com.ucb.app.ranking.data.repository.RankingRepositoryImpl
+import com.ucb.app.live.data.repository.LiveRepositoryImpl
+import com.ucb.app.live.domain.repository.LiveRepository
+import com.ucb.app.fighters.data.repository.FighterRepositoryImpl
+import com.ucb.app.fighters.domain.repository.FighterRepository
+import com.ucb.app.profile.data.repository.ProfileRepositoryImpl
+import com.ucb.app.profile.domain.repository.ProfileRepository
+import com.ucb.app.auth.data.repository.AuthenticationRepositoryImpl
+import com.ucb.app.auth.domain.repository.AuthenticationRepository
 
 val dataModule = module {
     singleOf(::GitHubApiService).bind<GithubRemoteDataSource>()
@@ -39,4 +49,14 @@ val dataModule = module {
     singleOf(::FightApiService)
     // Registramos el repositorio pasando el servicio
     single { FightRepositoryImpl(get()) }.bind<FightRepository>()
+    singleOf(::FightRepositoryImpl).bind<FightRepository>()
+
+    singleOf(::RankingRepositoryImpl).bind<RankingRepository>()
+    singleOf(::LiveRepositoryImpl).bind<LiveRepository>()
+
+    singleOf(::FighterRepositoryImpl).bind<FighterRepository>()
+
+    singleOf(::ProfileRepositoryImpl).bind<ProfileRepository>()
+
+    singleOf(::AuthenticationRepositoryImpl).bind<AuthenticationRepository>()
 }

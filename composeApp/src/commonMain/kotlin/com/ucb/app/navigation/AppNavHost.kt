@@ -12,6 +12,14 @@ import com.ucb.app.github.presentation.screen.GithubScreen
 import com.ucb.app.movie.presentation.screen.MovieScreen
 import com.ucb.app.portafolio.presentation.screen.PortafolioScreen
 import com.ucb.app.fights.presentation.screen.FightListScreen
+import com.ucb.app.ranking.presentation.screen.RankingScreen
+import com.ucb.app.live.presentation.screen.LiveScreen
+import com.ucb.app.fighters.presentation.screen.FightersScreen
+import com.ucb.app.profile.presentation.screen.ProfileScreen
+import com.ucb.app.auth.presentation.screen.LoginScreen
+import com.ucb.app.auth.presentation.screen.ForgotPasswordScreen
+import com.ucb.app.auth.presentation.screen.VerifyCodeScreen
+import com.ucb.app.auth.presentation.screen.ResetPasswordScreen
 
 @Composable
 fun AppNavHost() {
@@ -19,9 +27,10 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Fights
+        startDestination = NavRoute.Login
     ) {
         composable<NavRoute.Profile> {
+            ProfileScreen()
         }
 
         composable<NavRoute.ProfileEdit> {
@@ -57,6 +66,34 @@ fun AppNavHost() {
 
         composable<NavRoute.Fights> {
             FightListScreen()
+        }
+
+        composable<NavRoute.Ranking> {
+            RankingScreen()
+        }
+
+        composable<NavRoute.Live> {
+            LiveScreen()
+        }
+
+        composable<NavRoute.Fighters> {
+            FightersScreen()
+        }
+
+        composable<NavRoute.Login> {
+            LoginScreen()
+        }
+
+        composable<NavRoute.ForgotPassword> {
+            ForgotPasswordScreen()
+        }
+
+        composable<NavRoute.VerifyCode> {
+            VerifyCodeScreen()
+        }
+
+        composable<NavRoute.ResetPassword> {
+            ResetPasswordScreen()
         }
     }
 }
