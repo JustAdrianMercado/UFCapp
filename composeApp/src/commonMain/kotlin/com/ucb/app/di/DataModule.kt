@@ -20,6 +20,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import com.ucb.app.fights.data.repository.FightRepositoryImpl
 import com.ucb.app.fights.domain.repository.FightRepository
+import com.ucb.app.fights.data.service.FightApiService
 import com.ucb.app.ranking.domain.repository.RankingRepository
 import com.ucb.app.ranking.data.repository.RankingRepositoryImpl
 import com.ucb.app.live.data.repository.LiveRepositoryImpl
@@ -44,6 +45,10 @@ val dataModule = module {
     singleOf(::FirebaseManager)
     singleOf(::PortafolioRepositoryImpl).bind<PortafolioRepository>()
 
+    // Registramos el nuevo servicio de la API
+    singleOf(::FightApiService)
+    // Registramos el repositorio pasando el servicio
+    single { FightRepositoryImpl(get()) }.bind<FightRepository>()
     singleOf(::FightRepositoryImpl).bind<FightRepository>()
 
     singleOf(::RankingRepositoryImpl).bind<RankingRepository>()
