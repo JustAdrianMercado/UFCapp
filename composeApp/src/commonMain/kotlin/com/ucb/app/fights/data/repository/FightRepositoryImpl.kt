@@ -1,28 +1,32 @@
 package com.ucb.app.fights.data.repository
 
+import com.ucb.app.fights.data.mapper.toDomain
+import com.ucb.app.fights.data.service.FightApiService
 import com.ucb.app.fights.domain.model.Fight
 import com.ucb.app.fights.domain.repository.FightRepository
 
-class FightRepositoryImpl : FightRepository {
+class FightRepositoryImpl(
+    private val apiService: FightApiService
+) : FightRepository {
 
     override suspend fun getUpcomingFights(): List<Fight> {
-        return listOf(
-            Fight(
-                id = "1",
-                fighter1 = "Adesanya",
-                fighter2 = "Pereira",
-                eventName = "UFC 300",
-                date = "March 28",
-                imageUrl = "https://via.placeholder.com/300"
-            ),
-            Fight(
-                id = "2",
-                fighter1 = "Oliveira",
-                fighter2 = "Makhachev",
-                eventName = "UFC 301",
-                date = "April 10",
-                imageUrl = "https://via.placeholder.com/300"
-            )
-        )
+        return try {
+            val apiResponse = apiService.getUpcomingFights()
+            
+            // Si hay errores en la respuesta (como en tu código JS)
+            if (apiResponse.errors != null && apiResponse.errors.toString() != "[]") {
+                println("API ERROR DETECTED: ${apiResponse.errors}")
+                return emptyList()
+            }
+
+            val fightsDto = apiResponse.response ?: emptyList()
+            println("API DEBUG: Se encontraron ${fightsDto.size} peleas")
+            
+            fightsDto.map { it.toDomain() }
+        } catch (e: Exception) {
+            println("API REPO ERROR: ${e.message}")
+            e.printStackTrace()
+            emptyList()
+        }
     }
 }

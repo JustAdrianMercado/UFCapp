@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -34,20 +35,43 @@ fun FightListScreen(
         when {
             state.isLoading -> {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
+                    color = Color.Red
                 )
             }
 
             state.error != null -> {
                 Text(
-                    text = state.error ?: "Error",
+                    text = "Error: ${state.error}",
                     color = Color.White,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center).padding(20.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+
+            state.fights.isEmpty() -> {
+                Text(
+                    text = "No se encontraron peleas para esta fecha.\nRevisa tu conexión o API Key.",
+                    color = Color.Gray,
+                    modifier = Modifier.align(Alignment.Center).padding(20.dp),
+                    textAlign = TextAlign.Center
                 )
             }
 
             else -> {
-                LazyColumn {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(bottom = 16.dp)
+                ) {
+                    item {
+                        Text(
+                            text = "PRÓXIMAS PELEAS",
+                            color = Color.White,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Black,
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
                     items(state.fights) { fight ->
                         FightCard(fight = fight)
                     }
@@ -65,82 +89,53 @@ fun FightCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(18.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF090909)
+            containerColor = Color(0xFF1A1A1A)
         )
     ) {
         Column {
-            Box {
+            Box(modifier = Modifier.fillMaxWidth().height(160.dp)) {
                 AsyncImage(
                     model = fight.imageUrl,
                     contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(190.dp),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit
                 )
-
+                
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(190.dp)
+                        .fillMaxSize()
                         .background(
                             Brush.verticalGradient(
-                                colors = listOf(
-                                    Color.Transparent,
-                                    Color.Black
-                                )
+                                colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.7f))
                             )
                         )
                 )
-
+                
                 Text(
                     text = fight.eventName,
                     color = Color.White,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(16.dp)
+                    modifier = Modifier.align(Alignment.BottomStart).padding(12.dp)
                 )
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFF0D0D0D))
-                    .padding(16.dp)
-            ) {
+            Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = "${fight.fighter1} vs ${fight.fighter2}",
+                    text = "${fight.fighter1.uppercase()} vs ${fight.fighter2.uppercase()}",
                     color = Color.White,
-                    fontSize = 22.sp,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                
+                Text(
+                    text = fight.date.split("T")[0], // Simplificamos la fecha
+                    color = Color.Red,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
-
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Text(
-                    text = fight.date,
-                    color = Color(0xFFE10600),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Button(
-                    onClick = {},
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFE10600)
-                    ),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Más información",
-                        color = Color.White
-                    )
-                }
             }
         }
     }
