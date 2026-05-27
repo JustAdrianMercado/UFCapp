@@ -15,6 +15,7 @@ import com.ucb.app.ranking.domain.usecase.GetRankingsUseCase
 import com.ucb.app.live.domain.usecase.GetLiveEventsUseCase
 import com.ucb.app.fighters.domain.usecase.GetFightersUseCase
 import com.ucb.app.profile.domain.usecase.GetProfileUseCase
+import com.ucb.app.auth.domain.usecase.DoLoginUseCase
 
 val domainModule = module {
     singleOf(::GetAvatarUseCase)
@@ -31,4 +32,5 @@ val domainModule = module {
     singleOf(::GetLiveEventsUseCase)
     singleOf(::GetFightersUseCase)
     singleOf(::GetProfileUseCase)
+    singleOf(::DoLoginUseCase)
 }

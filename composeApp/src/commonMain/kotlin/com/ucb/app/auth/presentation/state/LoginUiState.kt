@@ -1,4 +1,4 @@
-package com.ucb.app.login.presentation.state
+package com.ucb.app.auth.presentation.state
 
 data class LoginUiState(
     val email: String = "",

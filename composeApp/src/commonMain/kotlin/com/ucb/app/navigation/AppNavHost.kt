@@ -16,6 +16,10 @@ import com.ucb.app.ranking.presentation.screen.RankingScreen
 import com.ucb.app.live.presentation.screen.LiveScreen
 import com.ucb.app.fighters.presentation.screen.FightersScreen
 import com.ucb.app.profile.presentation.screen.ProfileScreen
+import com.ucb.app.auth.presentation.screen.LoginScreen
+import com.ucb.app.auth.presentation.screen.ForgotPasswordScreen
+import com.ucb.app.auth.presentation.screen.VerifyCodeScreen
+import com.ucb.app.auth.presentation.screen.ResetPasswordScreen
 
 @Composable
 fun AppNavHost() {
@@ -23,7 +27,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Profile
+        startDestination = NavRoute.Login
     ) {
         composable<NavRoute.Profile> {
             ProfileScreen()
@@ -74,6 +78,22 @@ fun AppNavHost() {
 
         composable<NavRoute.Fighters> {
             FightersScreen()
+        }
+
+        composable<NavRoute.Login> {
+            LoginScreen()
+        }
+
+        composable<NavRoute.ForgotPassword> {
+            ForgotPasswordScreen()
+        }
+
+        composable<NavRoute.VerifyCode> {
+            VerifyCodeScreen()
+        }
+
+        composable<NavRoute.ResetPassword> {
+            ResetPasswordScreen()
         }
     }
 }

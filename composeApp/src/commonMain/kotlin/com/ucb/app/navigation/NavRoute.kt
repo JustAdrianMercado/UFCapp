@@ -38,6 +38,16 @@ sealed class NavRoute {
     object Live : NavRoute()
     @Serializable
     object Fighters : NavRoute()
+    @Serializable
+    object Login : NavRoute()
 
+    @Serializable
+    object ForgotPassword : NavRoute()
+
+    @Serializable
+    object VerifyCode : NavRoute()
+
+    @Serializable
+    object ResetPassword : NavRoute()
 }
 

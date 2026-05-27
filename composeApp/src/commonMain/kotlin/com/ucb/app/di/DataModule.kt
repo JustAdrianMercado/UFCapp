@@ -28,6 +28,8 @@ import com.ucb.app.fighters.data.repository.FighterRepositoryImpl
 import com.ucb.app.fighters.domain.repository.FighterRepository
 import com.ucb.app.profile.data.repository.ProfileRepositoryImpl
 import com.ucb.app.profile.domain.repository.ProfileRepository
+import com.ucb.app.auth.data.repository.AuthenticationRepositoryImpl
+import com.ucb.app.auth.domain.repository.AuthenticationRepository
 
 val dataModule = module {
     singleOf(::GitHubApiService).bind<GithubRemoteDataSource>()
@@ -50,4 +52,6 @@ val dataModule = module {
     singleOf(::FighterRepositoryImpl).bind<FighterRepository>()
 
     singleOf(::ProfileRepositoryImpl).bind<ProfileRepository>()
+
+    singleOf(::AuthenticationRepositoryImpl).bind<AuthenticationRepository>()
 }
