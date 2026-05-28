@@ -16,6 +16,9 @@ import com.ucb.app.live.domain.usecase.GetLiveEventsUseCase
 import com.ucb.app.fighters.domain.usecase.GetFightersUseCase
 import com.ucb.app.profile.domain.usecase.GetProfileUseCase
 import com.ucb.app.auth.domain.usecase.DoLoginUseCase
+import com.ucb.app.onboarding.domain.usecase.GetOnboardingCompletedUseCase
+import com.ucb.app.onboarding.domain.usecase.GetOnboardingPagesUseCase
+import com.ucb.app.onboarding.domain.usecase.SaveOnboardingCompletedUseCase
 
 val domainModule = module {
     singleOf(::GetAvatarUseCase)
@@ -33,4 +36,8 @@ val domainModule = module {
     singleOf(::GetFightersUseCase)
     singleOf(::GetProfileUseCase)
     singleOf(::DoLoginUseCase)
+
+    single { GetOnboardingPagesUseCase(get()) }
+    single { GetOnboardingCompletedUseCase(get()) }
+    single { SaveOnboardingCompletedUseCase(get()) }
 }

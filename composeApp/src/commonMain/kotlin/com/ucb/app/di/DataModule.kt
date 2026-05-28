@@ -31,6 +31,9 @@ import com.ucb.app.profile.data.repository.ProfileRepositoryImpl
 import com.ucb.app.profile.domain.repository.ProfileRepository
 import com.ucb.app.auth.data.repository.AuthenticationRepositoryImpl
 import com.ucb.app.auth.domain.repository.AuthenticationRepository
+import com.ucb.app.onboarding.data.repository.OnboardingRepositoryImpl
+import com.ucb.app.onboarding.domain.repository.OnboardingRepository
+
 
 val dataModule = module {
     singleOf(::GitHubApiService).bind<GithubRemoteDataSource>()
@@ -59,4 +62,8 @@ val dataModule = module {
     singleOf(::ProfileRepositoryImpl).bind<ProfileRepository>()
 
     singleOf(::AuthenticationRepositoryImpl).bind<AuthenticationRepository>()
+
+    single<OnboardingRepository> {
+        OnboardingRepositoryImpl(get(), get(), get())
+    }
 }

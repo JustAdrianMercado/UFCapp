@@ -3,7 +3,8 @@ package com.ucb.app.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class NavRoute {
+sealed class
+NavRoute {
 
     @Serializable
     object Profile : NavRoute()
@@ -49,5 +50,7 @@ sealed class NavRoute {
 
     @Serializable
     object ResetPassword : NavRoute()
+    @Serializable
+    object Onboarding : NavRoute()
 }
 

@@ -20,6 +20,7 @@ import com.ucb.app.auth.presentation.screen.LoginScreen
 import com.ucb.app.auth.presentation.screen.ForgotPasswordScreen
 import com.ucb.app.auth.presentation.screen.VerifyCodeScreen
 import com.ucb.app.auth.presentation.screen.ResetPasswordScreen
+import com.ucb.app.onboarding.presentation.screen.OnboardingScreen
 
 @Composable
 fun AppNavHost() {
@@ -27,7 +28,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Login
+        startDestination = NavRoute.Onboarding
     ) {
         composable<NavRoute.Profile> {
             ProfileScreen()
@@ -94,6 +95,18 @@ fun AppNavHost() {
 
         composable<NavRoute.ResetPassword> {
             ResetPasswordScreen()
+        }
+
+        composable<NavRoute.Onboarding> {
+            OnboardingScreen(
+                onNavigateHome = {
+                    navController.navigate(NavRoute.Fights) {
+                        popUpTo(NavRoute.Onboarding) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
     }
 }
