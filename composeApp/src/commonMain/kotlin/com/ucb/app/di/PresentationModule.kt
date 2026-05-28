@@ -19,6 +19,7 @@ import com.ucb.app.live.presentation.viewmodel.LiveViewModel
 import com.ucb.app.fighters.presentation.viewmodel.FightersViewModel
 import com.ucb.app.profile.presentation.viewmodel.ProfileViewModel
 import org.koin.core.module.dsl.viewModelOf
+import com.ucb.app.onboarding.presentation.viewmodel.OnboardingViewModel
 
 
 val presentationModule = module {
@@ -39,4 +40,5 @@ val presentationModule = module {
     viewModelOf(::LiveViewModel)
     viewModelOf(::FightersViewModel)
     viewModelOf(::ProfileViewModel)
+    viewModelOf(::OnboardingViewModel)
 }
