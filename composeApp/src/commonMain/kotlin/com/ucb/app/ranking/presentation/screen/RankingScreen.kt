@@ -14,11 +14,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ucb.app.navigation.AppBottomBar
+import com.ucb.app.navigation.AppTopBar
+import com.ucb.app.navigation.NavRoute
 import com.ucb.app.ranking.presentation.viewmodel.RankingViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RankingScreen(
+    onNavigateToHome: () -> Unit,
+    onNavigateToLive: () -> Unit,
+    onNavigateToFighters: () -> Unit,
+    onNavigateToProfile: () -> Unit,
+    onSearchClick: () -> Unit,
     viewModel: RankingViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -28,7 +36,7 @@ fun RankingScreen(
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        RankingTopBar()
+        AppTopBar(onSearchClick = onSearchClick)
 
         LazyColumn(
             modifier = Modifier
@@ -94,35 +102,19 @@ fun RankingScreen(
             }
         }
 
-        RankingBottomBar()
+        Box(modifier = Modifier.fillMaxWidth()) {
+            AppBottomBar(
+                currentRoute = NavRoute.Ranking,
+                onNavigateToHome = onNavigateToHome,
+                onNavigateToLive = onNavigateToLive,
+                onNavigateToRanking = { /* Already here */ },
+                onNavigateToFighters = onNavigateToFighters,
+                onNavigateToProfile = onNavigateToProfile
+            )
+        }
     }
 }
 
-@Composable
-fun RankingTopBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(58.dp)
-            .background(Color(0xFFD40000))
-            .padding(horizontal = 22.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "CageX",
-            color = Color.White,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f)
-        )
-
-        Text(
-            text = "⌕",
-            color = Color.White,
-            fontSize = 28.sp
-        )
-    }
-}
 
 @Composable
 fun RankingColumn(
@@ -156,21 +148,3 @@ fun RankingColumn(
     }
 }
 
-@Composable
-fun RankingBottomBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(Color(0xFFD40000))
-            .padding(horizontal = 18.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text("Home", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Live", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Rankings", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Fighters", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("☆", color = Color.White, fontSize = 24.sp)
-    }
-}

@@ -6,5 +6,6 @@ data class Fight(
     val fighter2: String,
     val eventName: String,
     val date: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val isMain: Boolean = false
 )

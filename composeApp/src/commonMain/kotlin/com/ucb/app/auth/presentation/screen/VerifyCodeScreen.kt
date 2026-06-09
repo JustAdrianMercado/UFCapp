@@ -18,7 +18,7 @@ fun VerifyCodeScreen() {
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    listOf(Color(0xFF120000), Color(0xFF8B0000))
+                    listOf(Color(0xFF120000), Color(0xFF8B0000)),
                 )
             )
             .padding(22.dp)

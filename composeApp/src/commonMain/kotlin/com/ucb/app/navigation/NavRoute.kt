@@ -33,5 +33,7 @@ NavRoute {
     object ResetPassword : NavRoute()
     @Serializable
     object Onboarding : NavRoute()
+    @Serializable
+    object Home : NavRoute()
 }
 

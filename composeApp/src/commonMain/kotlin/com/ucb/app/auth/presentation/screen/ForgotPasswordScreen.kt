@@ -23,7 +23,7 @@ fun ForgotPasswordScreen() {
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    listOf(Color(0xFF120000), Color(0xFF8B0000))
+                    listOf(Color(0xFF120000), Color(0xFF8B0000)),
                 )
             )
             .padding(24.dp)
@@ -40,9 +40,8 @@ fun ForgotPasswordScreen() {
         Text("Your Email", color = Color.White)
         AuthTextField(
             value = email,
-            placeholder = "Enter your email",
-            onValueChange = { email = it }
-        )
+            placeholder = "Enter your email"
+        ) { email = it }
 
         Spacer(modifier = Modifier.height(26.dp))
 

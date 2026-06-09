@@ -13,6 +13,7 @@ import com.ucb.app.auth.presentation.screen.LoginScreen
 import com.ucb.app.auth.presentation.screen.ForgotPasswordScreen
 import com.ucb.app.auth.presentation.screen.VerifyCodeScreen
 import com.ucb.app.auth.presentation.screen.ResetPasswordScreen
+import com.ucb.app.fights.presentation.screen.HomeScreen
 import com.ucb.app.onboarding.presentation.screen.OnboardingScreen
 
 @Composable
@@ -24,26 +25,70 @@ fun AppNavHost() {
         startDestination = NavRoute.Onboarding
     ) {
         composable<NavRoute.Profile> {
-            ProfileScreen()
+            ProfileScreen(
+                onNavigateToHome = { navController.navigate(NavRoute.Home) },
+                onNavigateToLive = { navController.navigate(NavRoute.Live) },
+                onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
+                onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
+                onNavigateToProfile = { /* Already here */ },
+                onNavigateBack = { navController.popBackStack() },
+                onEditProfile = { navController.navigate(NavRoute.ProfileEdit) }
+            )
         }
 
         composable<NavRoute.ProfileEdit> {
         }
 
         composable<NavRoute.Fights> {
-            FightListScreen()
+            FightListScreen(
+                onNavigateToHome = { navController.navigate(NavRoute.Home) },
+                onNavigateToLive = { navController.navigate(NavRoute.Live) },
+                onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
+                onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
+                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onSearchClick = { /* Already here or just reload */ }
+            )
+        }
+
+        composable<NavRoute.Home> {
+            HomeScreen(
+                onViewAllFights = { navController.navigate(NavRoute.Fights) },
+                onNavigateToLive = { navController.navigate(NavRoute.Live) },
+                onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
+                onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
+                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onSearchClick = { navController.navigate(NavRoute.Fights) }
+            )
         }
 
         composable<NavRoute.Ranking> {
-            RankingScreen()
+            RankingScreen(
+                onNavigateToHome = { navController.navigate(NavRoute.Home) },
+                onNavigateToLive = { navController.navigate(NavRoute.Live) },
+                onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
+                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onSearchClick = { navController.navigate(NavRoute.Fights) }
+            )
         }
 
         composable<NavRoute.Live> {
-            LiveScreen()
+            LiveScreen(
+                onNavigateToHome = { navController.navigate(NavRoute.Home) },
+                onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
+                onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
+                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onSearchClick = { navController.navigate(NavRoute.Fights) }
+            )
         }
 
         composable<NavRoute.Fighters> {
-            FightersScreen()
+            FightersScreen(
+                onNavigateToHome = { navController.navigate(NavRoute.Home) },
+                onNavigateToLive = { navController.navigate(NavRoute.Live) },
+                onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
+                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onSearchClick = { navController.navigate(NavRoute.Fights) }
+            )
         }
 
         composable<NavRoute.Login> {
@@ -63,15 +108,13 @@ fun AppNavHost() {
         }
 
         composable<NavRoute.Onboarding> {
-            OnboardingScreen(
-                onNavigateHome = {
-                    navController.navigate(NavRoute.Fights) {
-                        popUpTo(NavRoute.Onboarding) {
-                            inclusive = true
-                        }
+            OnboardingScreen {
+                navController.navigate(NavRoute.Home) {
+                    popUpTo(NavRoute.Onboarding) {
+                        inclusive = true
                     }
                 }
-            )
+            }
         }
     }
 }

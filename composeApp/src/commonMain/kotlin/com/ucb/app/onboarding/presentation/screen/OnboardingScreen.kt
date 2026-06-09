@@ -1,5 +1,6 @@
 package com.ucb.app.onboarding.presentation.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -157,11 +158,7 @@ fun OnboardingScreen(
                                 onClick = {
                                     viewModel.onEvent(OnboardingEvent.OnPreviousClick)
                                 },
-                                border = ButtonDefaults.outlinedButtonBorder.copy(
-                                    brush = Brush.horizontalGradient(
-                                        listOf(Color.White, Color.White)
-                                    )
-                                ),
+                                border = BorderStroke(1.dp, Color.White),
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text("Anterior", color = Color.White)

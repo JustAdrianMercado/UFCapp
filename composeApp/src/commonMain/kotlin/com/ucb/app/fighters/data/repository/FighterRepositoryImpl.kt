@@ -9,7 +9,7 @@ class FighterRepositoryImpl : FighterRepository {
             Fighter("1", "Islam Makhachev", "The Eagle’s Heir", "Lightweight", "27-1-0", "https://via.placeholder.com/300"),
             Fighter("2", "Alex Pereira", "Poatan", "Light Heavyweight", "10-2-0", "https://via.placeholder.com/300"),
             Fighter("3", "Ilia Topuria", "El Matador", "Featherweight", "16-0-0", "https://via.placeholder.com/300"),
-            Fighter("4", "Sean O'Malley", "Suga", "Bantamweight", "18-2-0", "https://via.placeholder.com/300")
+            Fighter("4", "Sean O'Malley", "Suga", "Bantamweight", "18-2-0", "https://via.placeholder.com/300"),
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.ucb.app.live.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,12 +14,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ucb.app.navigation.AppBottomBar
+import com.ucb.app.navigation.AppTopBar
+import com.ucb.app.navigation.NavRoute
 import com.ucb.app.live.domain.model.LiveEvent
 import com.ucb.app.live.presentation.viewmodel.LiveViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LiveScreen(
+    onNavigateToHome: () -> Unit,
+    onNavigateToRanking: () -> Unit,
+    onNavigateToFighters: () -> Unit,
+    onNavigateToProfile: () -> Unit,
+    onSearchClick: () -> Unit,
     viewModel: LiveViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -28,7 +37,7 @@ fun LiveScreen(
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        LiveTopBar()
+        AppTopBar(onSearchClick = onSearchClick)
 
         LazyColumn(
             modifier = Modifier
@@ -48,7 +57,7 @@ fun LiveScreen(
 
                 Spacer(modifier = Modifier.height(18.dp))
 
-                ParamountBox()
+                ParamountBox(onClick = {})
 
                 Spacer(modifier = Modifier.height(22.dp))
 
@@ -109,43 +118,28 @@ fun LiveScreen(
             }
         }
 
-        LiveBottomBar()
+        Box(modifier = Modifier.fillMaxWidth()) {
+            AppBottomBar(
+                currentRoute = NavRoute.Live,
+                onNavigateToHome = onNavigateToHome,
+                onNavigateToLive = { /* Already here */ },
+                onNavigateToRanking = onNavigateToRanking,
+                onNavigateToFighters = onNavigateToFighters,
+                onNavigateToProfile = onNavigateToProfile
+            )
+        }
     }
 }
 
-@Composable
-fun LiveTopBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(58.dp)
-            .background(Color(0xFFD40000))
-            .padding(horizontal = 22.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "CageX",
-            color = Color.White,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f)
-        )
-
-        Text(
-            text = "⌕",
-            color = Color.White,
-            fontSize = 28.sp
-        )
-    }
-}
 
 @Composable
-fun ParamountBox() {
+fun ParamountBox(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(110.dp)
-            .background(Color(0xFF006DFF)),
+            .background(Color(0xFF006DFF))
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -159,11 +153,14 @@ fun ParamountBox() {
 
 @Composable
 fun LiveEventItem(
-    event: LiveEvent
+    event: LiveEvent,
+    onClick: () -> Unit = {}
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(bottom = 14.dp)
+        modifier = Modifier
+            .padding(bottom = 14.dp)
+            .clickable { onClick() }
     ) {
         Text(
             text = event.date,
@@ -186,21 +183,3 @@ fun LiveEventItem(
     }
 }
 
-@Composable
-fun LiveBottomBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(Color(0xFFD40000))
-            .padding(horizontal = 18.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text("Home", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Live", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Rankings", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Fighters", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("☆", color = Color.White, fontSize = 24.sp)
-    }
-}

@@ -15,6 +15,7 @@ data class FightDto(
     val id: Int,
     val date: String,
     val slug: String? = null,
+    @SerialName("is_main") val isMain: Boolean = false,
     val fighters: FightersDto
 )
 

@@ -6,12 +6,13 @@ import com.ucb.app.fights.domain.model.Fight
 
 fun FightDto.toDomain(): Fight {
     return Fight(
-        id = id.toString(), // Convertimos el Int de la API a String
+        id = id.toString(),
         fighter1 = fighters.first.name,
         fighter2 = fighters.second.name,
         eventName = slug ?: "UFC Event",
         date = date,
-        imageUrl = fighters.first.logo ?: ""
+        imageUrl = fighters.first.logo ?: "",
+        isMain = isMain
     )
 }
 

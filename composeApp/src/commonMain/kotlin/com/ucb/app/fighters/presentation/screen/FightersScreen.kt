@@ -1,6 +1,7 @@
 package com.ucb.app.fighters.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,12 +18,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.ucb.app.navigation.AppBottomBar
+import com.ucb.app.navigation.AppTopBar
+import com.ucb.app.navigation.NavRoute
 import com.ucb.app.fighters.domain.model.Fighter
 import com.ucb.app.fighters.presentation.viewmodel.FightersViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun FightersScreen(
+    onNavigateToHome: () -> Unit,
+    onNavigateToLive: () -> Unit,
+    onNavigateToRanking: () -> Unit,
+    onNavigateToProfile: () -> Unit,
+    onSearchClick: () -> Unit,
     viewModel: FightersViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -32,7 +41,7 @@ fun FightersScreen(
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        FightersTopBar()
+        AppTopBar(onSearchClick = onSearchClick)
 
         Text(
             text = "Fighters",
@@ -72,18 +81,29 @@ fun FightersScreen(
             }
         }
 
-        FightersBottomBar()
+        Box(modifier = Modifier.fillMaxWidth()) {
+            AppBottomBar(
+                currentRoute = NavRoute.Fighters,
+                onNavigateToHome = onNavigateToHome,
+                onNavigateToLive = onNavigateToLive,
+                onNavigateToRanking = onNavigateToRanking,
+                onNavigateToFighters = { /* Already here */ },
+                onNavigateToProfile = onNavigateToProfile
+            )
+        }
     }
 }
 
 @Composable
 fun FighterCard(
-    fighter: Fighter
+    fighter: Fighter,
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 14.dp, vertical = 8.dp),
+            .padding(horizontal = 14.dp, vertical = 8.dp)
+            .clickable { onClick() },
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF121212)
@@ -139,47 +159,4 @@ fun FighterCard(
     }
 }
 
-@Composable
-fun FightersTopBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(58.dp)
-            .background(Color(0xFFD40000))
-            .padding(horizontal = 22.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "CageX",
-            color = Color.White,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.weight(1f)
-        )
 
-        Text(
-            text = "⌕",
-            color = Color.White,
-            fontSize = 28.sp
-        )
-    }
-}
-
-@Composable
-fun FightersBottomBar() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(Color(0xFFD40000))
-            .padding(horizontal = 18.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text("Home", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Live", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Rankings", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("Fighters", color = Color.White, fontWeight = FontWeight.Bold)
-        Text("☆", color = Color.White, fontSize = 24.sp)
-    }
-}

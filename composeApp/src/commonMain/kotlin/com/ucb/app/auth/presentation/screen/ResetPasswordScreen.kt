@@ -20,7 +20,7 @@ fun ResetPasswordScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(24.dp)
+            .padding(24.dp),
     ) {
         BackCircle()
 
@@ -34,18 +34,16 @@ fun ResetPasswordScreen() {
         Text("Password", color = Color.Black)
         AuthTextField(
             value = password,
-            placeholder = "Enter your new password",
-            onValueChange = { password = it }
-        )
+            placeholder = "Enter your new password"
+        ) { password = it }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Text("Confirm Password", color = Color.Black)
         AuthTextField(
             value = confirmPassword,
-            placeholder = "Re-enter password",
-            onValueChange = { confirmPassword = it }
-        )
+            placeholder = "Re-enter password"
+        ) { confirmPassword = it }
 
         Spacer(modifier = Modifier.height(28.dp))
 
