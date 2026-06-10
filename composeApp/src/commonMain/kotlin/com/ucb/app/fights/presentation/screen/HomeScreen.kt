@@ -56,6 +56,7 @@ fun HomeScreen(
         ) {
             // --- TOP BAR ---
             AppTopBar(
+                title = "CageX",
                 backgroundColor = Color.Transparent,
                 titleFontSize = 28,
                 onSearchClick = onSearchClick
@@ -66,11 +67,16 @@ fun HomeScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(300.dp)
+                        .height(350.dp)
                         .clickable { viewModel.onEvent(FightListEvent.OnFightClick(fight.id)) }
                 ) {
+                    // Gradiente más profundo
                     Box(modifier = Modifier.fillMaxSize().background(
-                        Brush.verticalGradient(listOf(Color(0xFFB11212), Color.Black))
+                        Brush.verticalGradient(
+                            0f to Color(0xFF8B0000),
+                            0.6f to Color(0xFF4B0000),
+                            1f to Color.Black
+                        )
                     ))
 
                     Column(
@@ -78,38 +84,63 @@ fun HomeScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text(stringResource(Res.string.ufc_fight_night), color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        Text(stringResource(Res.string.welterweight_bout), color = Color.Gray, fontSize = 10.sp)
-                        
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            val f1 = fight.fighter1.split(" ").lastOrNull()?.uppercase() ?: ""
-                            val f2 = fight.fighter2.split(" ").lastOrNull()?.uppercase() ?: ""
-                            Text(
-                                text = f1,
-                                color = Color.White,
-                                fontSize = 38.sp,
-                                fontWeight = FontWeight.Black
-                            )
-                            Text(" VS ", color = Color.Red, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                            Text(
-                                text = f2,
-                                color = Color.White,
-                                fontSize = 38.sp,
-                                fontWeight = FontWeight.Black
-                            )
-                        }
-                        
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(40.dp))
                         Text(
-                            text = stringResource(Res.string.saturday_may_30),
+                            text = stringResource(Res.string.ufc_fight_night).uppercase(),
+                            color = Color.White,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp
+                        )
+                        Text(
+                            text = stringResource(Res.string.welterweight_bout).uppercase(),
+                            color = Color.Gray,
+                            fontSize = 11.sp,
+                            letterSpacing = 0.5.sp
+                        )
+                        
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Matchup con apellidos grandes
+                        val name1 = fight.fighter1.split(" ").lastOrNull()?.uppercase() ?: ""
+                        val name2 = fight.fighter2.split(" ").lastOrNull()?.uppercase() ?: ""
+                        
+                        Text(
+                            text = name1,
+                            color = Color.White,
+                            fontSize = 44.sp,
+                            fontWeight = FontWeight.Black,
+                            lineHeight = 40.sp
+                        )
+                        Text(
+                            text = "VS",
+                            color = Color.Red,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            modifier = Modifier.padding(vertical = 4.dp)
+                        )
+                        Text(
+                            text = name2,
+                            color = Color.White,
+                            fontSize = 44.sp,
+                            fontWeight = FontWeight.Black,
+                            lineHeight = 40.sp
+                        )
+                        
+                        Spacer(modifier = Modifier.height(24.dp))
+                        
+                        Text(
+                            text = stringResource(Res.string.saturday_may_30).uppercase(),
                             color = Color.White,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Text(stringResource(Res.string.time_7pm_et), color = Color.White, fontSize = 14.sp)
+                        Text(
+                            text = stringResource(Res.string.time_7pm_et).uppercase(),
+                            color = Color.White,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
                     }
                 }
             }
@@ -171,22 +202,54 @@ fun NewsItem(title: String, date: String, time: String, imageUrl: String, onClic
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            .height(120.dp)
+            .padding(horizontal = 22.dp, vertical = 12.dp)
+            .height(130.dp)
             .clickable { onClick() }
     ) {
         AsyncImage(
             model = imageUrl,
             contentDescription = null,
-            modifier = Modifier.size(120.dp).background(Color(0xFF1A1A1A)),
-            contentScale = ContentScale.Fit
+            modifier = Modifier
+                .width(140.dp)
+                .fillMaxHeight()
+                .background(Color(0xFF1A1A1A)),
+            contentScale = ContentScale.Crop
         )
-        Column(modifier = Modifier.padding(start = 16.dp)) {
-            Text(title, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold, maxLines = 2)
-            Text(date, color = Color.Gray, fontSize = 14.sp)
-            if (time.isNotEmpty()) Text(time, color = Color.Red, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.weight(1f))
-            Text(stringResource(Res.string.view_details), color = Color.White, fontSize = 12.sp)
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(start = 16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = title,
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                lineHeight = 24.sp
+            )
+            Text(
+                text = date,
+                color = Color.Gray,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(vertical = 2.dp)
+            )
+            if (time.isNotEmpty()) {
+                Text(
+                    text = time.uppercase(),
+                    color = Color.Red,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(Res.string.view_details),
+                color = Color.White,
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Normal
+            )
         }
     }
 }

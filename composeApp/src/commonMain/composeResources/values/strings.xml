@@ -72,6 +72,13 @@
     <string name="flyweight">Peso mosca</string>
     <string name="bantamweight">Peso gallo</string>
     <string name="featherweight">Peso pluma</string>
+    <string name="lightweight">Peso ligero</string>
+    <string name="welterweight">Peso wélter</string>
+    <string name="middleweight">Peso medio</string>
+    <string name="light_heavyweight">Peso semipesado</string>
+    <string name="heavyweight">Peso pesado</string>
+    <string name="womens_flyweight">Peso mosca femenino</string>
+    <string name="womens_strawweight">Peso paja femenino</string>
 
     <!-- Fighters Screen -->
     <string name="fighters_title">Fighters</string>

@@ -3,6 +3,7 @@ package com.ucb.app.di
 import com.ucb.app.auth.data.repository.AuthenticationRepositoryImpl
 import com.ucb.app.auth.domain.repository.AuthenticationRepository
 import com.ucb.app.fighters.data.repository.FighterRepositoryImpl
+import com.ucb.app.fighters.data.service.FighterApiService
 import com.ucb.app.fighters.domain.repository.FighterRepository
 import com.ucb.app.fights.data.repository.FightRepositoryImpl
 import com.ucb.app.fights.data.service.FightApiService
@@ -35,6 +36,7 @@ val dataModule = module {
     singleOf(::RankingRepositoryImpl).bind<RankingRepository>()
     singleOf(::LiveRepositoryImpl).bind<LiveRepository>()
 
+    singleOf(::FighterApiService)
     singleOf(::FighterRepositoryImpl).bind<FighterRepository>()
 
     singleOf(::ProfileRepositoryImpl).bind<ProfileRepository>()
