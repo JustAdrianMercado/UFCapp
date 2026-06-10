@@ -52,70 +52,135 @@ fun RankingScreen(
     ) {
         AppTopBar(onSearchClick = onSearchClick)
 
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 18.dp)
-        ) {
-            item {
-                Text(
-                    text = stringResource(Res.string.athlete_rankings),
-                    color = Color.White,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 18.dp, bottom = 18.dp)
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    RankingColumn(
-                        title = stringResource(Res.string.mens_p4p_top_rank),
-                        fighters = state.rankings,
-                        modifier = Modifier.weight(1f),
-                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+        if (state.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Color.Red)
+            }
+        } else {
+            LazyColumn(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 18.dp)
+            ) {
+                item {
+                    Text(
+                        text = stringResource(Res.string.athlete_rankings),
+                        color = Color.White,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(top = 18.dp, bottom = 18.dp)
                     )
 
-                    Box(
-                        modifier = Modifier
-                            .width(1.dp)
-                            .height(330.dp)
-                            .background(Color.White)
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        RankingColumn(
+                            title = stringResource(Res.string.mens_p4p_top_rank),
+                            fighters = state.rankings.filter { it.division == "Pound-for-Pound" || it.id.toInt() <= 4 },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
 
-                    RankingColumn(
-                        title = stringResource(Res.string.flyweight),
-                        fighters = state.rankings,
-                        modifier = Modifier.weight(1f),
-                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
-                    )
-                }
+                        DividerVertical()
 
-                Spacer(modifier = Modifier.height(20.dp))
+                        RankingColumn(
+                            title = stringResource(Res.string.flyweight),
+                            fighters = state.rankings.filter { it.division == "Flyweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+                    }
 
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    RankingColumn(
-                        title = stringResource(Res.string.bantamweight),
-                        fighters = state.rankings,
-                        modifier = Modifier.weight(1f),
-                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
-                    )
+                    Spacer(modifier = Modifier.height(20.dp))
 
-                    Box(
-                        modifier = Modifier
-                            .width(1.dp)
-                            .height(330.dp)
-                            .background(Color.White)
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        RankingColumn(
+                            title = stringResource(Res.string.bantamweight),
+                            fighters = state.rankings.filter { it.division == "Bantamweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
 
-                    RankingColumn(
-                        title = stringResource(Res.string.featherweight),
-                        fighters = state.rankings,
-                        modifier = Modifier.weight(1f),
-                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
-                    )
+                        DividerVertical()
+
+                        RankingColumn(
+                            title = stringResource(Res.string.featherweight),
+                            fighters = state.rankings.filter { it.division == "Featherweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        RankingColumn(
+                            title = stringResource(Res.string.lightweight),
+                            fighters = state.rankings.filter { it.division == "Lightweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+
+                        DividerVertical()
+
+                        RankingColumn(
+                            title = stringResource(Res.string.welterweight),
+                            fighters = state.rankings.filter { it.division == "Welterweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        RankingColumn(
+                            title = stringResource(Res.string.middleweight),
+                            fighters = state.rankings.filter { it.division == "Middleweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+
+                        DividerVertical()
+
+                        RankingColumn(
+                            title = stringResource(Res.string.heavyweight),
+                            fighters = state.rankings.filter { it.division == "Heavyweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        RankingColumn(
+                            title = stringResource(Res.string.womens_flyweight),
+                            fighters = state.rankings.filter { it.division == "Women's Flyweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+
+                        DividerVertical()
+
+                        RankingColumn(
+                            title = stringResource(Res.string.womens_strawweight),
+                            fighters = state.rankings.filter { it.division == "Women's Strawweight" },
+                            modifier = Modifier.weight(1f),
+                            onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
+                        )
+                    }
                 }
             }
         }
@@ -129,6 +194,16 @@ fun RankingScreen(
             onNavigateToProfile = onNavigateToProfile
         )
     }
+}
+
+@Composable
+fun DividerVertical() {
+    Box(
+        modifier = Modifier
+            .width(1.dp)
+            .height(330.dp)
+            .background(Color.White.copy(alpha = 0.3f))
+    )
 }
 
 @Composable
@@ -151,10 +226,14 @@ fun RankingColumn(
         )
 
         repeat(15) { index ->
-            val fighter = fighters.getOrNull(index % fighters.size)
+            val fighter = if (fighters.isNotEmpty()) {
+                fighters.getOrNull(index % fighters.size)
+            } else {
+                null
+            }
 
             Text(
-                text = "${index + 1} ${fighter?.fighterName ?: "Fighter Name"}",
+                text = "${index + 1} ${fighter?.fighterName ?: "---"}",
                 color = Color.White,
                 fontSize = 10.sp,
                 lineHeight = 14.sp,
