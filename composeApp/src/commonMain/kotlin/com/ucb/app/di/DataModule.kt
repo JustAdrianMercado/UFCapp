@@ -18,6 +18,7 @@ import com.ucb.app.profile.data.repository.ProfileRepositoryImpl
 import com.ucb.app.profile.domain.repository.ProfileRepository
 import com.ucb.app.ranking.data.repository.RankingRepositoryImpl
 import com.ucb.app.ranking.domain.repository.RankingRepository
+import com.ucb.app.session.SessionManager
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -25,6 +26,7 @@ import org.koin.dsl.module
 
 val dataModule = module {
     singleOf(::FirebaseManager)
+    singleOf(::SessionManager)
     singleOf(::PortafolioRepositoryImpl).bind<PortafolioRepository>()
 
     singleOf(::FightApiService)

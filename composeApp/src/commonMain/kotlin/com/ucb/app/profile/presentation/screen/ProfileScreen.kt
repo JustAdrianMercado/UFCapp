@@ -33,6 +33,7 @@ fun ProfileScreen(
     onNavigateToProfile: () -> Unit,
     onNavigateBack: () -> Unit,
     onEditProfile: () -> Unit,
+    onNavigateToLogin: () -> Unit,
     viewModel: ProfileViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
@@ -44,7 +45,7 @@ fun ProfileScreen(
                     onEditProfile()
                 }
                 com.ucb.app.profile.presentation.state.ProfileEffect.NavigateToLogin -> {
-                    // TODO: Implement logout navigation
+                    onNavigateToLogin()
                 }
             }
         }

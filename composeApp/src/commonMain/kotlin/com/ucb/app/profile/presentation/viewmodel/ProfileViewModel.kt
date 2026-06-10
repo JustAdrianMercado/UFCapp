@@ -6,6 +6,7 @@ import com.ucb.app.profile.domain.usecase.GetProfileUseCase
 import com.ucb.app.profile.presentation.state.ProfileEffect
 import com.ucb.app.profile.presentation.state.ProfileEvent
 import com.ucb.app.profile.presentation.state.ProfileUiState
+import com.ucb.app.session.SessionManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-    private val getProfileUseCase: GetProfileUseCase
+    private val getProfileUseCase: GetProfileUseCase,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileUiState())
@@ -37,6 +39,7 @@ class ProfileViewModel(
                 }
             }
             is ProfileEvent.OnLogOutClick -> {
+                sessionManager.clearSession()
                 viewModelScope.launch {
                     _effect.emit(ProfileEffect.NavigateToLogin)
                 }

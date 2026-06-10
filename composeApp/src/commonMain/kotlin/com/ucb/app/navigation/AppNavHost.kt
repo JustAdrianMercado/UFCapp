@@ -8,6 +8,7 @@ import com.ucb.app.fights.presentation.screen.FightListScreen
 import com.ucb.app.ranking.presentation.screen.RankingScreen
 import com.ucb.app.live.presentation.screen.LiveScreen
 import com.ucb.app.fighters.presentation.screen.FightersScreen
+import com.ucb.app.profile.presentation.screen.ProfileEditScreen
 import com.ucb.app.profile.presentation.screen.ProfileScreen
 import com.ucb.app.auth.presentation.screen.LoginScreen
 import com.ucb.app.auth.presentation.screen.ForgotPasswordScreen
@@ -22,7 +23,7 @@ fun AppNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Onboarding
+        startDestination = NavRoute.Login
     ) {
         composable<NavRoute.Profile> {
             ProfileScreen(
@@ -32,11 +33,22 @@ fun AppNavHost() {
                 onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
                 onNavigateToProfile = { /* Already here */ },
                 onNavigateBack = { navController.popBackStack() },
-                onEditProfile = { navController.navigate(NavRoute.ProfileEdit) }
+                onEditProfile = { navController.navigate(NavRoute.ProfileEdit) },
+                onNavigateToLogin = {
+                    navController.navigate(NavRoute.Login) {
+                        popUpTo(NavRoute.Home) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
 
         composable<NavRoute.ProfileEdit> {
+            ProfileEditScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onChangePassword = { navController.navigate(NavRoute.ResetPassword) }
+            )
         }
 
         composable<NavRoute.Fights> {
@@ -92,7 +104,15 @@ fun AppNavHost() {
         }
 
         composable<NavRoute.Login> {
-            LoginScreen()
+            LoginScreen(
+                onNavigateHome = {
+                    navController.navigate(NavRoute.Home) {
+                        popUpTo(NavRoute.Login) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
 
         composable<NavRoute.ForgotPassword> {
@@ -104,7 +124,7 @@ fun AppNavHost() {
         }
 
         composable<NavRoute.ResetPassword> {
-            ResetPasswordScreen()
+            ResetPasswordScreen(onNavigateBack = { navController.popBackStack() })
         }
 
         composable<NavRoute.Onboarding> {

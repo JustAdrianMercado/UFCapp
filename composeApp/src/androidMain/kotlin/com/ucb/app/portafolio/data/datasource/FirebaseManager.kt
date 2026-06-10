@@ -6,7 +6,9 @@ import kotlinx.coroutines.tasks.await
 
 
 actual class FirebaseManager actual constructor() {
-    private val database = FirebaseDatabase.getInstance().reference
+    private val database = FirebaseDatabase
+        .getInstance(DATABASE_URL)
+        .reference
 
     actual suspend fun saveData(path: String, value: String) {
         try {
@@ -14,6 +16,7 @@ actual class FirebaseManager actual constructor() {
             println("Firebase Android: Saved on $path")
         } catch (e: Exception) {
             println("Firebase Android: Error - ${e.message}")
+            throw e
         }
     }
 
@@ -27,7 +30,11 @@ actual class FirebaseManager actual constructor() {
             value
         } catch (e: Exception) {
             println("Firebase Android: Error Obtaining data - ${e.message}")
-            null
+            throw e
         }
+    }
+
+    private companion object {
+        const val DATABASE_URL = "https://proyectoprogra-4fd2a-default-rtdb.firebaseio.com"
     }
 }
