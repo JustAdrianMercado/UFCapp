@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- Loco xml export: Android strings
- Project: MobileApp
- Locale: fr-FR, French (France)
- Exported by: Adrian Mercado
- Exported at: Wed, 22 Apr 2026 16:35:11 -0400
--->
 <resources>
-    <string name="app_name">KotlinProject</string>
+    <string name="app_name">CageX</string>
     <string name="portfolio_title">Portefeuille Firebase</string>
     <string name="label_path">Chemin</string>
     <string name="label_value">Valeur</string>
@@ -27,4 +20,82 @@
     <string name="github_find">Rechercher</string>
     <string name="github_title">Trouvez votre avatar GitHub</string>
     <string name="github_text_hint">Nom d\'utilisateur GitHub</string>
+
+    <!-- Bottom Nav -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_live">En direct</string>
+    <string name="nav_rankings">Classements</string>
+    <string name="nav_fighters">Combattants</string>
+
+    <!-- Home Screen -->
+    <string name="ufc_fight_night">UFC FIGHT NIGHT</string>
+    <string name="welterweight_bout">COMBAT DE POIDS MI-MOYENS</string>
+    <string name="saturday_may_30">SAMEDI 30 MAI</string>
+    <string name="time_7pm_et">19H ET</string>
+    <string name="estelar_ufc_usa">Événement principal à l\'UFC USA</string>
+    <string name="more_info">Plus d\'informations</string>
+    <string name="main_event">ÉVÉNEMENT PRINCIPAL</string>
+    <string name="undercard">Sous-carte</string>
+    <string name="view_details">Voir les détails</string>
+
+    <!-- Live Screen -->
+    <string name="where_to_watch">Où regarder</string>
+    <string name="watch_on_paramount">Regarder sur Paramount+</string>
+    <string name="tickets">Billets</string>
+    <string name="on_sale_public">En vente - Public</string>
+    <string name="available">Disponible</string>
+
+    <!-- Ranking Screen -->
+    <string name="athlete_rankings">Classements des athlètes</string>
+    <string name="mens_p4p_top_rank">Meilleur classement livre pour livre pour hommes</string>
+    <string name="flyweight">Poids mouche</string>
+    <string name="bantamweight">Poids coq</string>
+    <string name="featherweight">Poids plume</string>
+
+    <!-- Fighters Screen -->
+    <string name="fighters_title">Combattants</string>
+
+    <!-- Profile Screen -->
+    <string name="edit_profile">Modifier le profil</string>
+    <string name="favourites">Favoris</string>
+    <string name="downloads">Téléchargements</string>
+    <string name="languages">Langues</string>
+    <string name="location">Emplacement</string>
+    <string name="subscription">Abonnement</string>
+    <string name="display">Affichage</string>
+    <string name="clear_cache">Effacer le cache</string>
+    <string name="clear_history">Effacer l\'historique</string>
+    <string name="log_out">Se déconnecter</string>
+    <string name="app_version">Version de l\'application %1$s</string>
+
+    <!-- Fight List Screen -->
+    <string name="upcoming_fights">COMBATS À VENIR</string>
+    <string name="fights_title">Combats</string>
+    <string name="no_fights_found">Aucun combat trouvé pour cette date.\nVérifiez votre connexion ou votre clé API.</string>
+
+    <!-- Onboarding -->
+    <string name="skip">Passer</string>
+    <string name="previous">Précédent</string>
+    <string name="start">Démarrer</string>
+    <string name="next">Suivant</string>
+
+    <!-- Auth -->
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password_label">Mot de passe</string>
+    <string name="log_in_btn">Se connecter</string>
+    <string name="forgot_password_title">Mot de passe oublié</string>
+    <string name="forgot_password_desc">Veuillez saisir votre e-mail pour réinitialiser le mot de passe</string>
+    <string name="your_email">Votre e-mail</string>
+    <string name="enter_your_email">Saisissez votre e-mail</string>
+    <string name="reset_password_btn">Réinitialiser le mot de passe 🔒</string>
+    <string name="check_email_title">Vérifier votre e-mail</string>
+    <string name="check_email_desc">Nous avons envoyé un lien de réinitialisation à votre e-mail</string>
+    <string name="verify_code_btn">Vérifier le code</string>
+    <string name="resend_email">Vous n\'avez pas encore reçu l\'e-mail ? Renvoyer l\'e-mail</string>
+    <string name="reset_password_title">Définir un nouveau mot de passe</string>
+    <string name="reset_password_desc">Créez un nouveau mot de passe. Assurez-vous qu\'il diffère du précédent pour plus de sécurité</string>
+    <string name="enter_your_new_password">Saisissez votre nouveau mot de passe</string>
+    <string name="confirm_password">Confirmer le mot de passe</string>
+    <string name="re_enter_password">Saisissez à nouveau le mot de passe</string>
+    <string name="update_password_btn">Mettre à jour le mot de passe</string>
 </resources>

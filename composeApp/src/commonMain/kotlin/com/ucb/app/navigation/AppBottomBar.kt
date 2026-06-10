@@ -12,6 +12,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.nav_fighters
+import kotlinproject.composeapp.generated.resources.nav_home
+import kotlinproject.composeapp.generated.resources.nav_live
+import kotlinproject.composeapp.generated.resources.nav_rankings
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AppBottomBar(
@@ -31,10 +37,10 @@ fun AppBottomBar(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BottomNavItem("Home", currentRoute is NavRoute.Home, onNavigateToHome)
-            BottomNavItem("Live", currentRoute is NavRoute.Live, onNavigateToLive)
-            BottomNavItem("Rankings", currentRoute is NavRoute.Ranking, onNavigateToRanking)
-            BottomNavItem("Fighters", currentRoute is NavRoute.Fighters, onNavigateToFighters)
+            BottomNavItem(stringResource(Res.string.nav_home), currentRoute is NavRoute.Home, onNavigateToHome)
+            BottomNavItem(stringResource(Res.string.nav_live), currentRoute is NavRoute.Live, onNavigateToLive)
+            BottomNavItem(stringResource(Res.string.nav_rankings), currentRoute is NavRoute.Ranking, onNavigateToRanking)
+            BottomNavItem(stringResource(Res.string.nav_fighters), currentRoute is NavRoute.Fighters, onNavigateToFighters)
             Icon(
                 imageVector = Icons.Default.Star,
                 contentDescription = "Favorite",

@@ -1,11 +1,12 @@
 package com.ucb.app.ranking.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -17,7 +18,10 @@ import androidx.compose.ui.unit.sp
 import com.ucb.app.navigation.AppBottomBar
 import com.ucb.app.navigation.AppTopBar
 import com.ucb.app.navigation.NavRoute
+import com.ucb.app.ranking.presentation.state.RankingEvent
 import com.ucb.app.ranking.presentation.viewmodel.RankingViewModel
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -30,6 +34,16 @@ fun RankingScreen(
     viewModel: RankingViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is com.ucb.app.ranking.presentation.state.RankingEffect.NavigateToFighterDetail -> {
+                    // TODO: Implement navigation
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -45,7 +59,7 @@ fun RankingScreen(
         ) {
             item {
                 Text(
-                    text = "Clasificación de los atletas",
+                    text = stringResource(Res.string.athlete_rankings),
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
@@ -56,9 +70,10 @@ fun RankingScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     RankingColumn(
-                        title = "Men's Pound-for-\nPound Top Rank",
+                        title = stringResource(Res.string.mens_p4p_top_rank),
                         fighters = state.rankings,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
                     )
 
                     Box(
@@ -69,9 +84,10 @@ fun RankingScreen(
                     )
 
                     RankingColumn(
-                        title = "Peso mosca",
+                        title = stringResource(Res.string.flyweight),
                         fighters = state.rankings,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
                     )
                 }
 
@@ -81,9 +97,10 @@ fun RankingScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     RankingColumn(
-                        title = "Peso gallo",
+                        title = stringResource(Res.string.bantamweight),
                         fighters = state.rankings,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
                     )
 
                     Box(
@@ -94,33 +111,32 @@ fun RankingScreen(
                     )
 
                     RankingColumn(
-                        title = "Peso pluma",
+                        title = stringResource(Res.string.featherweight),
                         fighters = state.rankings,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
                     )
                 }
             }
         }
 
-        Box(modifier = Modifier.fillMaxWidth()) {
-            AppBottomBar(
-                currentRoute = NavRoute.Ranking,
-                onNavigateToHome = onNavigateToHome,
-                onNavigateToLive = onNavigateToLive,
-                onNavigateToRanking = { /* Already here */ },
-                onNavigateToFighters = onNavigateToFighters,
-                onNavigateToProfile = onNavigateToProfile
-            )
-        }
+        AppBottomBar(
+            currentRoute = NavRoute.Ranking,
+            onNavigateToHome = onNavigateToHome,
+            onNavigateToLive = onNavigateToLive,
+            onNavigateToRanking = { /* Already here */ },
+            onNavigateToFighters = onNavigateToFighters,
+            onNavigateToProfile = onNavigateToProfile
+        )
     }
 }
-
 
 @Composable
 fun RankingColumn(
     title: String,
     fighters: List<com.ucb.app.ranking.domain.model.FighterRanking>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onFighterClick: (String) -> Unit = {}
 ) {
     Column(
         modifier = modifier.padding(horizontal = 8.dp)
@@ -142,9 +158,10 @@ fun RankingColumn(
                 color = Color.White,
                 fontSize = 10.sp,
                 lineHeight = 14.sp,
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier
+                    .padding(bottom = 4.dp)
+                    .clickable { fighter?.let { onFighterClick(it.id) } }
             )
         }
     }
 }
-

@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import com.ucb.app.auth.presentation.composable.AuthTextField
 
 @Composable
@@ -32,15 +34,15 @@ fun ForgotPasswordScreen() {
 
         Spacer(modifier = Modifier.height(42.dp))
 
-        Text("Forgot password", color = Color.White, fontSize = 22.sp)
-        Text("Please enter your email to reset the password", color = Color.LightGray)
+        Text(stringResource(Res.string.forgot_password_title), color = Color.White, fontSize = 22.sp)
+        Text(stringResource(Res.string.forgot_password_desc), color = Color.LightGray)
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        Text("Your Email", color = Color.White)
+        Text(stringResource(Res.string.your_email), color = Color.White)
         AuthTextField(
             value = email,
-            placeholder = "Enter your email"
+            placeholder = stringResource(Res.string.enter_your_email)
         ) { email = it }
 
         Spacer(modifier = Modifier.height(26.dp))
@@ -51,7 +53,7 @@ fun ForgotPasswordScreen() {
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD40000)),
             modifier = Modifier.fillMaxWidth().height(54.dp)
         ) {
-            Text("Reset Password 🔒")
+            Text(stringResource(Res.string.reset_password_btn))
         }
     }
 }

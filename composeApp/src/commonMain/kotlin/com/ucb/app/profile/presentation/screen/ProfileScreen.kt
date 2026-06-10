@@ -18,7 +18,10 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.ucb.app.navigation.AppBottomBar
 import com.ucb.app.navigation.NavRoute
+import com.ucb.app.profile.presentation.state.ProfileEvent
 import com.ucb.app.profile.presentation.viewmodel.ProfileViewModel
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -33,6 +36,19 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                com.ucb.app.profile.presentation.state.ProfileEffect.NavigateToEditProfile -> {
+                    onEditProfile()
+                }
+                com.ucb.app.profile.presentation.state.ProfileEffect.NavigateToLogin -> {
+                    // TODO: Implement logout navigation
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -117,40 +133,40 @@ fun ProfileScreen(
                                 )
 
                                 Button(
-                                    onClick = onEditProfile,
+                                    onClick = { viewModel.onEvent(ProfileEvent.OnEditProfileClick) },
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = Color(0xFFE10600)
                                     ),
                                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 2.dp),
                                     modifier = Modifier.height(28.dp)
                                 ) {
-                                    Text("Edit Profile", fontSize = 11.sp)
+                                    Text(stringResource(Res.string.edit_profile), fontSize = 11.sp)
                                 }
                             }
                         }
 
                         Spacer(modifier = Modifier.height(36.dp))
 
-                        ProfileMenuItem("♡", "Favourites", {})
-                        ProfileMenuItem("↓", "Downloads", {})
+                        ProfileMenuItem("♡", stringResource(Res.string.favourites), {})
+                        ProfileMenuItem("↓", stringResource(Res.string.downloads), {})
 
                         DividerLine()
 
-                        ProfileMenuItem("◎", "Languages", {})
-                        ProfileMenuItem("⌖", "Location", {})
-                        ProfileMenuItem("▣", "Subscription", {})
-                        ProfileMenuItem("▭", "Display", {})
+                        ProfileMenuItem("◎", stringResource(Res.string.languages), {})
+                        ProfileMenuItem("⌖", stringResource(Res.string.location), {})
+                        ProfileMenuItem("▣", stringResource(Res.string.subscription), {})
+                        ProfileMenuItem("▭", stringResource(Res.string.display), {})
 
                         DividerLine()
 
-                        ProfileMenuItem("⌫", "Clear Cache", {})
-                        ProfileMenuItem("◷", "Clear History", {})
-                        ProfileMenuItem("↩", "Log Out", {})
+                        ProfileMenuItem("⌫", stringResource(Res.string.clear_cache), {})
+                        ProfileMenuItem("◷", stringResource(Res.string.clear_history), {})
+                        ProfileMenuItem("↩", stringResource(Res.string.log_out), { viewModel.onEvent(ProfileEvent.OnLogOutClick) })
 
                         Spacer(modifier = Modifier.weight(1f))
 
                         Text(
-                            text = "App Version 1.2",
+                            text = stringResource(Res.string.app_version, "1.2"),
                             color = Color.LightGray,
                             fontSize = 11.sp,
                             modifier = Modifier.align(Alignment.CenterHorizontally)

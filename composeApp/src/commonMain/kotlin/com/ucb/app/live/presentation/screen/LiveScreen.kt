@@ -18,7 +18,10 @@ import com.ucb.app.navigation.AppBottomBar
 import com.ucb.app.navigation.AppTopBar
 import com.ucb.app.navigation.NavRoute
 import com.ucb.app.live.domain.model.LiveEvent
+import com.ucb.app.live.presentation.state.LiveScreenEvent
 import com.ucb.app.live.presentation.viewmodel.LiveViewModel
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -31,6 +34,19 @@ fun LiveScreen(
     viewModel: LiveViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is com.ucb.app.live.presentation.state.LiveScreenEffect.NavigateToEventDetail -> {
+                    // TODO: Implement navigation
+                }
+                com.ucb.app.live.presentation.state.LiveScreenEffect.OpenParamountExternal -> {
+                    // TODO: Implement external link
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -49,7 +65,7 @@ fun LiveScreen(
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
-                    text = "Donde Ver",
+                    text = stringResource(Res.string.where_to_watch),
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -57,19 +73,19 @@ fun LiveScreen(
 
                 Spacer(modifier = Modifier.height(18.dp))
 
-                ParamountBox(onClick = {})
+                ParamountBox(onClick = { viewModel.onEvent(LiveScreenEvent.OnParamountClick) })
 
                 Spacer(modifier = Modifier.height(22.dp))
 
                 Button(
-                    onClick = {},
+                    onClick = { viewModel.onEvent(LiveScreenEvent.OnParamountClick) },
                     shape = RoundedCornerShape(30.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF8B0000)
                     )
                 ) {
                     Text(
-                        text = "Mira en Paramount+",
+                        text = stringResource(Res.string.watch_on_paramount),
                         color = Color.White
                     )
                 }
@@ -77,7 +93,7 @@ fun LiveScreen(
                 Spacer(modifier = Modifier.height(28.dp))
 
                 Text(
-                    text = "Boletos",
+                    text = stringResource(Res.string.tickets),
                     color = Color.White,
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Bold
@@ -87,14 +103,17 @@ fun LiveScreen(
             }
 
             items(state.events) { event ->
-                LiveEventItem(event = event)
+                LiveEventItem(
+                    event = event,
+                    onClick = { viewModel.onEvent(LiveScreenEvent.OnEventClick(event.id)) }
+                )
             }
 
             item {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "A la venta - Público",
+                    text = stringResource(Res.string.on_sale_public),
                     color = Color(0xFFB22222),
                     fontSize = 14.sp
                 )
@@ -109,7 +128,7 @@ fun LiveScreen(
                     )
                 ) {
                     Text(
-                        text = "Disponible",
+                        text = stringResource(Res.string.available),
                         color = Color.White
                     )
                 }
@@ -118,19 +137,16 @@ fun LiveScreen(
             }
         }
 
-        Box(modifier = Modifier.fillMaxWidth()) {
-            AppBottomBar(
-                currentRoute = NavRoute.Live,
-                onNavigateToHome = onNavigateToHome,
-                onNavigateToLive = { /* Already here */ },
-                onNavigateToRanking = onNavigateToRanking,
-                onNavigateToFighters = onNavigateToFighters,
-                onNavigateToProfile = onNavigateToProfile
-            )
-        }
+        AppBottomBar(
+            currentRoute = NavRoute.Live,
+            onNavigateToHome = onNavigateToHome,
+            onNavigateToLive = { /* Already here */ },
+            onNavigateToRanking = onNavigateToRanking,
+            onNavigateToFighters = onNavigateToFighters,
+            onNavigateToProfile = onNavigateToProfile
+        )
     }
 }
-
 
 @Composable
 fun ParamountBox(onClick: () -> Unit) {
@@ -182,4 +198,3 @@ fun LiveEventItem(
         )
     }
 }
-

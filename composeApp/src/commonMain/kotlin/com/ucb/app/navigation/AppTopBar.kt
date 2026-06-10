@@ -13,10 +13,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.app_name
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AppTopBar(
-    title: String = "CageX",
+    title: String = stringResource(Res.string.app_name),
     backgroundColor: Color = Color(0xFFD40000),
     titleFontSize: Int = 22,
     onSearchClick: () -> Unit = {},

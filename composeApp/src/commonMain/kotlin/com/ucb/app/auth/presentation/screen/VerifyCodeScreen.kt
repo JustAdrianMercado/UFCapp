@@ -10,6 +10,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun VerifyCodeScreen() {
@@ -28,8 +30,8 @@ fun VerifyCodeScreen() {
 
             Spacer(modifier = Modifier.height(36.dp))
 
-            Text("Check your email", color = Color.White, fontSize = 22.sp)
-            Text("We sent a reset link to your email", color = Color.LightGray)
+            Text(stringResource(Res.string.check_email_title), color = Color.White, fontSize = 22.sp)
+            Text(stringResource(Res.string.check_email_desc), color = Color.LightGray)
 
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -51,12 +53,12 @@ fun VerifyCodeScreen() {
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD40000)),
                 modifier = Modifier.fillMaxWidth().height(54.dp)
             ) {
-                Text("Verify Code")
+                Text(stringResource(Res.string.verify_code_btn))
             }
 
             Spacer(modifier = Modifier.height(28.dp))
 
-            Text("Haven't got the email yet? Resend email", color = Color.White)
+            Text(stringResource(Res.string.resend_email), color = Color.White)
         }
     }
 }

@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import com.ucb.app.auth.presentation.composable.AuthTextField
 
 @Composable
@@ -26,23 +28,23 @@ fun ResetPasswordScreen() {
 
         Spacer(modifier = Modifier.height(42.dp))
 
-        Text("Set a new password", color = Color.Black, fontSize = 22.sp)
-        Text("Create a new password. Ensure it differs from previous one for security", color = Color.Gray)
+        Text(stringResource(Res.string.reset_password_title), color = Color.Black, fontSize = 22.sp)
+        Text(stringResource(Res.string.reset_password_desc), color = Color.Gray)
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        Text("Password", color = Color.Black)
+        Text(stringResource(Res.string.password_label), color = Color.Black)
         AuthTextField(
             value = password,
-            placeholder = "Enter your new password"
+            placeholder = stringResource(Res.string.enter_your_new_password)
         ) { password = it }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text("Confirm Password", color = Color.Black)
+        Text(stringResource(Res.string.confirm_password), color = Color.Black)
         AuthTextField(
             value = confirmPassword,
-            placeholder = "Re-enter password"
+            placeholder = stringResource(Res.string.re_enter_password)
         ) { confirmPassword = it }
 
         Spacer(modifier = Modifier.height(28.dp))
@@ -53,7 +55,7 @@ fun ResetPasswordScreen() {
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E8EE6)),
             modifier = Modifier.fillMaxWidth().height(54.dp)
         ) {
-            Text("Update Password")
+            Text(stringResource(Res.string.update_password_btn))
         }
     }
 }

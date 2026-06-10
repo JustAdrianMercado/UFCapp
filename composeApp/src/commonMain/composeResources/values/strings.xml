@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">CageX</string>
     <string name="explore">Explore</string>
     <string name="sign_in_title">Sign In</string>
     <string name="sign_in_email">Email</string>
@@ -8,10 +9,31 @@
     <string name="login_email">Email Address</string>
     <string name="login_password">Password</string>
     <string name="login_btn">Sign in</string>
+    <string name="username">Username</string>
+    <string name="password_label">Password</string>
+    <string name="log_in_btn">Log In</string>
+    <string name="forgot_password_title">Forgot password</string>
+    <string name="forgot_password_desc">Please enter your email to reset the password</string>
+    <string name="your_email">Your Email</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="reset_password_btn">Reset Password 🔒</string>
+    <string name="check_email_title">Check your email</string>
+    <string name="check_email_desc">We sent a reset link to your email</string>
+    <string name="verify_code_btn">Verify Code</string>
+    <string name="resend_email">Haven\'t got the email yet? Resend email</string>
+    <string name="reset_password_title">Set a new password</string>
+    <string name="reset_password_desc">Create a new password. Ensure it differs from previous one for security</string>
+    <string name="enter_your_new_password">Enter your new password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="re_enter_password">Re-enter password</string>
+    <string name="update_password_btn">Update Password</string>
+    <string name="skip">Omitir</string>
+    <string name="previous">Anterior</string>
+    <string name="start">Iniciar</string>
+    <string name="next">Siguiente</string>
     <string name="github_find">Find</string>
     <string name="github_title">Find your Github Avatar</string>
     <string name="github_text_hint">GitHub username</string>
-    <string name="app_name">KotlinProject</string>
     <string name="portfolio_title">Firebase Portafolio</string>
     <string name="label_path">Path</string>
     <string name="label_value">Valor</string>
@@ -19,4 +41,56 @@
     <string name="button_read">Leer</string>
     <string name="success_message">Éxito: %1$s</string>
     <string name="error_message">Error: %1$s</string>
+
+    <!-- Bottom Nav -->
+    <string name="nav_home">Home</string>
+    <string name="nav_live">Live</string>
+    <string name="nav_rankings">Rankings</string>
+    <string name="nav_fighters">Fighters</string>
+
+    <!-- Home Screen -->
+    <string name="ufc_fight_night">UFC FIGHT NIGHT</string>
+    <string name="welterweight_bout">WELTERWEIGHT BOUT</string>
+    <string name="saturday_may_30">SATURDAY, MAY 30</string>
+    <string name="time_7pm_et">7 PM ET</string>
+    <string name="estelar_ufc_usa">Estelar en UFC USA</string>
+    <string name="more_info">Más información</string>
+    <string name="main_event">EVENTO ESTELAR</string>
+    <string name="undercard">Cartelera</string>
+    <string name="view_details">Ver detalles</string>
+
+    <!-- Live Screen -->
+    <string name="where_to_watch">Donde Ver</string>
+    <string name="watch_on_paramount">Mira en Paramount+</string>
+    <string name="tickets">Boletos</string>
+    <string name="on_sale_public">A la venta - Público</string>
+    <string name="available">Disponible</string>
+
+    <!-- Ranking Screen -->
+    <string name="athlete_rankings">Clasificación de los atletas</string>
+    <string name="mens_p4p_top_rank">Men\'s Pound-for-Pound Top Rank</string>
+    <string name="flyweight">Peso mosca</string>
+    <string name="bantamweight">Peso gallo</string>
+    <string name="featherweight">Peso pluma</string>
+
+    <!-- Fighters Screen -->
+    <string name="fighters_title">Fighters</string>
+
+    <!-- Profile Screen -->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="favourites">Favourites</string>
+    <string name="downloads">Downloads</string>
+    <string name="languages">Languages</string>
+    <string name="location">Location</string>
+    <string name="subscription">Subscription</string>
+    <string name="display">Display</string>
+    <string name="clear_cache">Clear Cache</string>
+    <string name="clear_history">Clear History</string>
+    <string name="log_out">Log Out</string>
+    <string name="app_version">App Version %1$s</string>
+
+    <!-- Fight List Screen -->
+    <string name="upcoming_fights">PRÓXIMAS PELEAS</string>
+    <string name="fights_title">Peleas</string>
+    <string name="no_fights_found">No se encontraron peleas para esta fecha.\nRevisa tu conexión o API Key.</string>
 </resources>

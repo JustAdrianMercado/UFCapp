@@ -20,7 +20,10 @@ import com.ucb.app.navigation.AppBottomBar
 import com.ucb.app.navigation.AppTopBar
 import com.ucb.app.navigation.NavRoute
 import com.ucb.app.fights.presentation.viewmodel.FightListViewModel
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import com.ucb.app.fights.presentation.state.FightListEvent
 
 @Composable
 fun HomeScreen(
@@ -34,6 +37,16 @@ fun HomeScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     val mainFight = state.fights.find { it.isMain } ?: state.fights.firstOrNull()
+
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is com.ucb.app.fights.presentation.state.FightListEffect.NavigateToFightDetail -> {
+                    // TODO: Implement navigation to detail
+                }
+            }
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         Column(
@@ -54,7 +67,7 @@ fun HomeScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(300.dp)
-                        .clickable { onViewAllFights() }
+                        .clickable { viewModel.onEvent(FightListEvent.OnFightClick(fight.id)) }
                 ) {
                     Box(modifier = Modifier.fillMaxSize().background(
                         Brush.verticalGradient(listOf(Color(0xFFB11212), Color.Black))
@@ -65,8 +78,8 @@ fun HomeScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text("UFC FIGHT NIGHT", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        Text("WELTERWEIGHT BOUT", color = Color.Gray, fontSize = 10.sp)
+                        Text(stringResource(Res.string.ufc_fight_night), color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text(stringResource(Res.string.welterweight_bout), color = Color.Gray, fontSize = 10.sp)
                         
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -91,12 +104,12 @@ fun HomeScreen(
                         
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "SATURDAY, MAY 30",
+                            text = stringResource(Res.string.saturday_may_30),
                             color = Color.White,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Text("7 PM ET", color = Color.White, fontSize = 14.sp)
+                        Text(stringResource(Res.string.time_7pm_et), color = Color.White, fontSize = 14.sp)
                     }
                 }
             }
@@ -112,14 +125,14 @@ fun HomeScreen(
                     color = Color.Red
                 )
                 Text(
-                    "Estelar en UFC USA",
+                    stringResource(Res.string.estelar_ufc_usa),
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 8.dp)
                 )
                 Text(
-                    "Más información",
+                    stringResource(Res.string.more_info),
                     color = Color.Gray,
                     modifier = Modifier.clickable { onViewAllFights() }
                 )
@@ -130,9 +143,9 @@ fun HomeScreen(
                 NewsItem(
                     title = "${fight.fighter1} vs ${fight.fighter2}",
                     date = fight.date.split("T")[0],
-                    time = if (fight.isMain) "EVENTO ESTELAR" else "Cartelera",
+                    time = if (fight.isMain) stringResource(Res.string.main_event) else stringResource(Res.string.undercard),
                     imageUrl = fight.imageUrl,
-                    onClick = { onViewAllFights() }
+                    onClick = { viewModel.onEvent(FightListEvent.OnFightClick(fight.id)) }
                 )
             }
 
@@ -173,8 +186,7 @@ fun NewsItem(title: String, date: String, time: String, imageUrl: String, onClic
             Text(date, color = Color.Gray, fontSize = 14.sp)
             if (time.isNotEmpty()) Text(time, color = Color.Red, fontSize = 12.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.weight(1f))
-            Text("Ver detalles", color = Color.White, fontSize = 12.sp)
+            Text(stringResource(Res.string.view_details), color = Color.White, fontSize = 12.sp)
         }
     }
 }
-

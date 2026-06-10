@@ -17,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import coil3.compose.AsyncImage
 import com.ucb.app.onboarding.presentation.state.OnboardingEffect
 import com.ucb.app.onboarding.presentation.state.OnboardingEvent
@@ -75,7 +77,7 @@ fun OnboardingScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "CageX",
+                            text = stringResource(Res.string.app_name),
                             color = Color.White,
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
@@ -87,7 +89,7 @@ fun OnboardingScreen(
                                 viewModel.onEvent(OnboardingEvent.OnSkipClick)
                             }
                         ) {
-                            Text("Omitir", color = Color.White)
+                            Text(stringResource(Res.string.skip), color = Color.White)
                         }
                     }
 
@@ -161,7 +163,7 @@ fun OnboardingScreen(
                                 border = BorderStroke(1.dp, Color.White),
                                 modifier = Modifier.weight(1f)
                             ) {
-                                Text("Anterior", color = Color.White)
+                                Text(stringResource(Res.string.previous), color = Color.White)
                             }
                         } else {
                             Spacer(modifier = Modifier.weight(1f))
@@ -184,7 +186,7 @@ fun OnboardingScreen(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = if (state.isLastPage) "Iniciar" else "Siguiente",
+                                text = if (state.isLastPage) stringResource(Res.string.start) else stringResource(Res.string.next),
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold
                             )

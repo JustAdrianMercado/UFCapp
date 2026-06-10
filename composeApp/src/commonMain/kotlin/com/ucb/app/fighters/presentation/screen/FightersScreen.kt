@@ -22,7 +22,11 @@ import com.ucb.app.navigation.AppBottomBar
 import com.ucb.app.navigation.AppTopBar
 import com.ucb.app.navigation.NavRoute
 import com.ucb.app.fighters.domain.model.Fighter
+import com.ucb.app.fighters.presentation.state.FightersEvent
 import com.ucb.app.fighters.presentation.viewmodel.FightersViewModel
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.fighters_title
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -36,6 +40,16 @@ fun FightersScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is com.ucb.app.fighters.presentation.state.FightersEffect.NavigateToFighterDetail -> {
+                    // TODO: Implement navigation
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +58,7 @@ fun FightersScreen(
         AppTopBar(onSearchClick = onSearchClick)
 
         Text(
-            text = "Fighters",
+            text = stringResource(Res.string.fighters_title),
             color = Color.White,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
@@ -75,22 +89,23 @@ fun FightersScreen(
                     modifier = Modifier.weight(1f)
                 ) {
                     items(state.fighters) { fighter ->
-                        FighterCard(fighter = fighter)
+                        FighterCard(
+                            fighter = fighter,
+                            onClick = { viewModel.onEvent(FightersEvent.OnFighterClick(fighter.id)) }
+                        )
                     }
                 }
             }
         }
 
-        Box(modifier = Modifier.fillMaxWidth()) {
-            AppBottomBar(
-                currentRoute = NavRoute.Fighters,
-                onNavigateToHome = onNavigateToHome,
-                onNavigateToLive = onNavigateToLive,
-                onNavigateToRanking = onNavigateToRanking,
-                onNavigateToFighters = { /* Already here */ },
-                onNavigateToProfile = onNavigateToProfile
-            )
-        }
+        AppBottomBar(
+            currentRoute = NavRoute.Fighters,
+            onNavigateToHome = onNavigateToHome,
+            onNavigateToLive = onNavigateToLive,
+            onNavigateToRanking = onNavigateToRanking,
+            onNavigateToFighters = { /* Already here */ },
+            onNavigateToProfile = onNavigateToProfile
+        )
     }
 }
 
@@ -158,5 +173,3 @@ fun FighterCard(
         }
     }
 }
-
-

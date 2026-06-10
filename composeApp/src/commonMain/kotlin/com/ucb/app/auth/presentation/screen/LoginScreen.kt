@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import com.ucb.app.auth.presentation.composable.AuthTextField
 import com.ucb.app.auth.presentation.state.LoginEvent
 import com.ucb.app.auth.presentation.viewmodel.LoginViewModel
@@ -38,7 +40,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "CageX",
+                text = stringResource(Res.string.app_name),
                 color = Color.White,
                 fontSize = 46.sp,
                 fontWeight = FontWeight.Bold
@@ -46,7 +48,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(50.dp))
 
-            Text("Username", color = Color.White, modifier = Modifier.align(Alignment.Start))
+            Text(stringResource(Res.string.username), color = Color.White, modifier = Modifier.align(Alignment.Start))
             AuthTextField(
                 value = state.email,
                 placeholder = "",
@@ -55,7 +57,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(18.dp))
 
-            Text("Password", color = Color.White, modifier = Modifier.align(Alignment.Start))
+            Text(stringResource(Res.string.password_label), color = Color.White, modifier = Modifier.align(Alignment.Start))
             AuthTextField(
                 value = state.password,
                 placeholder = "",
@@ -74,7 +76,7 @@ fun LoginScreen(
                     .fillMaxWidth()
                     .height(54.dp)
             ) {
-                Text("Log In", color = Color.White, fontSize = 18.sp)
+                Text(stringResource(Res.string.log_in_btn), color = Color.White, fontSize = 18.sp)
             }
         }
     }

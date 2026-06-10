@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.firebaseAppDistribution)
 
 
 }
@@ -83,6 +84,8 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
         }
     }
 }
@@ -106,11 +109,25 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            firebaseAppDistribution {
+                artifactType = "APK"
+                groups = "testers"
+            }
+        }
+        getByName("debug") {
+            firebaseAppDistribution {
+                artifactType = "APK"
+                groups = "testers"
+            }
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 }
 

@@ -22,8 +22,11 @@ import com.ucb.app.navigation.AppBottomBar
 import com.ucb.app.navigation.AppTopBar
 import com.ucb.app.navigation.NavRoute
 import com.ucb.app.fights.presentation.viewmodel.FightListViewModel
+import kotlinproject.composeapp.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import com.ucb.app.fights.domain.model.Fight
+import com.ucb.app.fights.presentation.state.FightListEvent
 
 @Composable
 fun FightListScreen(
@@ -37,13 +40,23 @@ fun FightListScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is com.ucb.app.fights.presentation.state.FightListEffect.NavigateToFightDetail -> {
+                    // TODO: Implement navigation to detail
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
         AppTopBar(
-            title = "Peleas",
+            title = stringResource(Res.string.fights_title),
             onSearchClick = onSearchClick
         )
 
@@ -62,7 +75,7 @@ fun FightListScreen(
 
                 state.error != null -> {
                     Text(
-                        text = "Error: ${state.error}",
+                        text = stringResource(Res.string.error_message, state.error ?: ""),
                         color = Color.White,
                         modifier = Modifier.align(Alignment.Center).padding(20.dp),
                         textAlign = TextAlign.Center
@@ -71,7 +84,7 @@ fun FightListScreen(
 
                 state.fights.isEmpty() -> {
                     Text(
-                        text = "No se encontraron peleas para esta fecha.\nRevisa tu conexión o API Key.",
+                        text = stringResource(Res.string.no_fights_found),
                         color = Color.Gray,
                         modifier = Modifier.align(Alignment.Center).padding(20.dp),
                         textAlign = TextAlign.Center
@@ -85,7 +98,7 @@ fun FightListScreen(
                     ) {
                         item {
                             Text(
-                                text = "PRÓXIMAS PELEAS",
+                                text = stringResource(Res.string.upcoming_fights),
                                 color = Color.White,
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Black,
@@ -93,7 +106,10 @@ fun FightListScreen(
                             )
                         }
                         items(state.fights) { fight ->
-                            FightCard(fight = fight)
+                            FightCard(
+                                fight = fight,
+                                onClick = { viewModel.onEvent(FightListEvent.OnFightClick(fight.id)) }
+                            )
                         }
                     }
                 }

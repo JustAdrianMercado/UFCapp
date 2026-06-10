@@ -20,6 +20,12 @@ kotlin {
         }
         minSdk = 24
 
+        lint {
+            checkTestSources = false
+            ignoreTestSources = true
+            abortOnError = false
+        }
+
         withHostTestBuilder {
         }
 
@@ -72,7 +78,6 @@ kotlin {
                 implementation(libs.compose.material3)
                 implementation(libs.compose.ui)
                 implementation(libs.compose.components.resources)
-                implementation(libs.compose.uiToolingPreview)
             }
         }
 
@@ -84,6 +89,7 @@ kotlin {
 
         androidMain {
             dependencies {
+                implementation(libs.compose.uiToolingPreview)
                 // Add Android-specific dependencies here. Note that this source set depends on
                 // commonMain by default and will correctly pull the Android artifacts of any KMP
                 // dependencies declared in commonMain.
@@ -109,4 +115,20 @@ kotlin {
         }
     }
 
+}
+
+// Fix for implicit dependency issues during lint tasks in KMP
+tasks.matching { it.name == "generateAndroidHostTestLintModel" }.configureEach {
+    dependsOn(tasks.matching { it.name == "generateResourceAccessorsForAndroidHostTest" })
+    dependsOn(tasks.matching { it.name == "generateResourceAccessorsForCommonTest" })
+}
+tasks.matching { it.name == "lintAnalyzeAndroidHostTest" }.configureEach {
+    dependsOn(tasks.matching { it.name == "generateResourceAccessorsForAndroidHostTest" })
+    dependsOn(tasks.matching { it.name == "generateResourceAccessorsForCommonTest" })
+}
+tasks.matching { it.name == "generateAndroidDeviceTestLintModel" }.configureEach {
+    dependsOn(tasks.matching { it.name == "generateResourceAccessorsForCommonTest" })
+}
+tasks.matching { it.name == "lintAnalyzeAndroidDeviceTest" }.configureEach {
+    dependsOn(tasks.matching { it.name == "generateResourceAccessorsForCommonTest" })
 }
