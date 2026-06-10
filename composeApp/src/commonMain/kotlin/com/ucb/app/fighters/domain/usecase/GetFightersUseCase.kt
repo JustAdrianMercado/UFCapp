@@ -5,5 +5,5 @@ import com.ucb.app.fighters.domain.repository.FighterRepository
 class GetFightersUseCase(
     private val repository: FighterRepository
 ) {
-    suspend operator fun invoke() = repository.getFighters()
+    suspend operator fun invoke(search: String? = null) = repository.getFighters(search)
 }

@@ -79,7 +79,7 @@ fun RankingScreen(
                     ) {
                         RankingColumn(
                             title = stringResource(Res.string.mens_p4p_top_rank),
-                            fighters = state.rankings.filter { it.division == "Pound-for-Pound" || it.id.toInt() <= 4 },
+                            fighters = state.rankings.filter { it.division == "Pound-for-Pound" || (it.id.toIntOrNull() ?: 0) <= 4 },
                             modifier = Modifier.weight(1f),
                             onFighterClick = { id -> viewModel.onEvent(RankingEvent.OnFighterClick(id)) }
                         )
@@ -227,7 +227,7 @@ fun RankingColumn(
 
         repeat(15) { index ->
             val fighter = if (fighters.isNotEmpty()) {
-                fighters.getOrNull(index % fighters.size)
+                fighters.getOrNull(index)
             } else {
                 null
             }

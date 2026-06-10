@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -62,23 +64,66 @@ fun FightersScreen(
             color = Color.White,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(18.dp)
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)
+        )
+
+        OutlinedTextField(
+            value = state.searchQuery,
+            onValueChange = { viewModel.onEvent(FightersEvent.OnSearchQueryChanged(it)) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 8.dp),
+            placeholder = { Text("Search fighters...", color = Color.Gray) },
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null, tint = Color.Gray) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White,
+                cursorColor = Color.Red,
+                focusedBorderColor = Color.Red,
+                unfocusedBorderColor = Color.Gray,
+                focusedContainerColor = Color(0xFF121212),
+                unfocusedContainerColor = Color(0xFF121212)
+            ),
+            shape = RoundedCornerShape(12.dp),
+            singleLine = true
         )
 
         when {
             state.isLoading -> {
                 Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
                     CircularProgressIndicator(
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
+                        color = Color.Red
                     )
                 }
             }
 
             state.error != null -> {
                 Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Error: ${state.error}",
+                            color = Color.White,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                        Button(
+                            onClick = { viewModel.onEvent(FightersEvent.LoadFighters) },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                        ) {
+                            Text("Retry")
+                        }
+                    }
+                }
+            }
+
+            state.filteredFighters.isEmpty() -> {
+                Box(modifier = Modifier.weight(1f).fillMaxWidth()) {
                     Text(
-                        text = state.error ?: "Error",
-                        color = Color.White,
+                        text = if (state.searchQuery.isEmpty()) "No fighters found" else "No results for \"${state.searchQuery}\"",
+                        color = Color.Gray,
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
@@ -86,9 +131,10 @@ fun FightersScreen(
 
             else -> {
                 LazyColumn(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    contentPadding = PaddingValues(bottom = 16.dp)
                 ) {
-                    items(state.fighters) { fighter ->
+                    items(state.filteredFighters) { fighter ->
                         FighterCard(
                             fighter = fighter,
                             onClick = { viewModel.onEvent(FightersEvent.OnFighterClick(fighter.id)) }
