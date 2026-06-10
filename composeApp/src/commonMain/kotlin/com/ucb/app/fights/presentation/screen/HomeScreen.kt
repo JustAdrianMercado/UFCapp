@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,12 +38,13 @@ fun HomeScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     val mainFight = state.fights.find { it.isMain } ?: state.fights.firstOrNull()
+    val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is com.ucb.app.fights.presentation.state.FightListEffect.NavigateToFightDetail -> {
-                    // TODO: Implement navigation to detail
+                    uriHandler.openUri(UFC_EVENTS_URL)
                 }
             }
         }
@@ -196,6 +198,8 @@ fun HomeScreen(
         }
     }
 }
+
+private const val UFC_EVENTS_URL = "https://www.ufc.com/events"
 
 @Composable
 fun NewsItem(title: String, date: String, time: String, imageUrl: String, onClick: () -> Unit) {

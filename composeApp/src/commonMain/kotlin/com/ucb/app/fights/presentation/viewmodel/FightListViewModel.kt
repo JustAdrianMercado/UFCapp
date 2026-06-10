@@ -45,7 +45,7 @@ class FightListViewModel(
             _uiState.value = _uiState.value.copy(isLoading = true)
             
             val fakeFights = listOf(
-                Fight("1", "PRUEBA 1", "PRUEBA 2", "UFC EVENT TEST", "2026-05-30", "")
+                Fight("1", "Islam Makhachev", "Ilia Topuria", "UFC Fight Night", "2026-05-30", "")
             )
             
             try {

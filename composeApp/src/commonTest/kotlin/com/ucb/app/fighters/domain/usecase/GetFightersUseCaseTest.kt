@@ -15,7 +15,7 @@ class GetFightersUseCaseTest {
             Fighter("1", "Name", "Nickname", "Division", "0-0", "")
         )
         val repository = object : FighterRepository {
-            override suspend fun getFighters(): List<Fighter> = expectedFighters
+            override suspend fun getFighters(search: String?): List<Fighter> = expectedFighters
         }
         val useCase = GetFightersUseCase(repository)
 

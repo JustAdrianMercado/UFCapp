@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,12 +42,13 @@ fun FightersScreen(
     viewModel: FightersViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+    val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is com.ucb.app.fighters.presentation.state.FightersEffect.NavigateToFighterDetail -> {
-                    // TODO: Implement navigation
+                    uriHandler.openUri(UFC_ATHLETES_URL)
                 }
             }
         }
@@ -154,6 +156,8 @@ fun FightersScreen(
         )
     }
 }
+
+private const val UFC_ATHLETES_URL = "https://www.ufc.com/athletes/all"
 
 @Composable
 fun FighterCard(

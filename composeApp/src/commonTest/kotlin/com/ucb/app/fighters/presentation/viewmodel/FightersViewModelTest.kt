@@ -37,7 +37,7 @@ class FightersViewModelTest {
             Fighter("1", "Fighter 1", "Nickname", "Division", "0-0", "")
         )
         val repository = object : FighterRepository {
-            override suspend fun getFighters(): List<Fighter> = fighters
+            override suspend fun getFighters(search: String?): List<Fighter> = fighters
         }
         val useCase = GetFightersUseCase(repository)
 
@@ -58,7 +58,7 @@ class FightersViewModelTest {
         // Given
         val errorMessage = "Error loading fighters"
         val repository = object : FighterRepository {
-            override suspend fun getFighters(): List<Fighter> = throw Exception(errorMessage)
+            override suspend fun getFighters(search: String?): List<Fighter> = throw Exception(errorMessage)
         }
         val useCase = GetFightersUseCase(repository)
 

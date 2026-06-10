@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,15 +35,16 @@ fun LiveScreen(
     viewModel: LiveViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+    val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is com.ucb.app.live.presentation.state.LiveScreenEffect.NavigateToEventDetail -> {
-                    // TODO: Implement navigation
+                    uriHandler.openUri(UFC_EVENTS_URL)
                 }
                 com.ucb.app.live.presentation.state.LiveScreenEffect.OpenParamountExternal -> {
-                    // TODO: Implement external link
+                    uriHandler.openUri(PARAMOUNT_URL)
                 }
             }
         }
@@ -121,7 +123,7 @@ fun LiveScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Button(
-                    onClick = {},
+                    onClick = { uriHandler.openUri(UFC_TICKETS_URL) },
                     shape = RoundedCornerShape(30.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF8B0000)
@@ -147,6 +149,10 @@ fun LiveScreen(
         )
     }
 }
+
+private const val PARAMOUNT_URL = "https://www.paramountplus.com/"
+private const val UFC_EVENTS_URL = "https://www.ufc.com/events"
+private const val UFC_TICKETS_URL = "https://www.ufc.com/tickets"
 
 @Composable
 fun ParamountBox(onClick: () -> Unit) {

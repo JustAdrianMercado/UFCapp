@@ -39,7 +39,7 @@ fun RankingScreen(
         viewModel.effect.collect { effect ->
             when (effect) {
                 is com.ucb.app.ranking.presentation.state.RankingEffect.NavigateToFighterDetail -> {
-                    // TODO: Implement navigation
+                    onNavigateToFighters()
                 }
             }
         }

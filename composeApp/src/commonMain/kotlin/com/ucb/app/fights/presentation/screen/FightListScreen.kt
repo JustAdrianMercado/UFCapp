@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -39,12 +40,13 @@ fun FightListScreen(
     viewModel: FightListViewModel = koinViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+    val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(Unit) {
         viewModel.effect.collect { effect ->
             when (effect) {
                 is com.ucb.app.fights.presentation.state.FightListEffect.NavigateToFightDetail -> {
-                    // TODO: Implement navigation to detail
+                    uriHandler.openUri(UFC_EVENTS_URL)
                 }
             }
         }
@@ -126,6 +128,8 @@ fun FightListScreen(
         )
     }
 }
+
+private const val UFC_EVENTS_URL = "https://www.ufc.com/events"
 
 @Composable
 fun FightCard(
