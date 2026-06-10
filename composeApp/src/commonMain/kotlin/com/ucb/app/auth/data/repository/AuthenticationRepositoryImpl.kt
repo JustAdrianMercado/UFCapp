@@ -3,7 +3,7 @@ package com.ucb.app.auth.data.repository
 import com.ucb.app.auth.domain.model.LoginModel
 import com.ucb.app.auth.domain.model.RegisterModel
 import com.ucb.app.auth.domain.repository.AuthenticationRepository
-import com.ucb.app.portafolio.data.datasource.FirebaseManager
+import com.ucb.app.firebase.FirebaseManager
 import com.ucb.app.profile.domain.model.ProfileModel
 import com.ucb.app.session.SessionManager
 import kotlinx.serialization.Serializable

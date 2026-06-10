@@ -11,9 +11,7 @@ import com.ucb.app.live.data.repository.LiveRepositoryImpl
 import com.ucb.app.live.domain.repository.LiveRepository
 import com.ucb.app.onboarding.data.repository.OnboardingRepositoryImpl
 import com.ucb.app.onboarding.domain.repository.OnboardingRepository
-import com.ucb.app.portafolio.data.datasource.FirebaseManager
-import com.ucb.app.portafolio.data.repository.PortafolioRepositoryImpl
-import com.ucb.app.portafolio.domain.repository.PortafolioRepository
+import com.ucb.app.firebase.FirebaseManager
 import com.ucb.app.profile.data.repository.ProfileRepositoryImpl
 import com.ucb.app.profile.domain.repository.ProfileRepository
 import com.ucb.app.ranking.data.repository.RankingRepositoryImpl
@@ -27,7 +25,6 @@ import org.koin.dsl.module
 val dataModule = module {
     singleOf(::FirebaseManager)
     singleOf(::SessionManager)
-    singleOf(::PortafolioRepositoryImpl).bind<PortafolioRepository>()
 
     singleOf(::FightApiService)
     single { FightRepositoryImpl(get()) }.bind<FightRepository>()

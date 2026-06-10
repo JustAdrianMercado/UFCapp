@@ -23,12 +23,16 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         Log.d("FCM", "Notification permission granted: $isGranted")
+        if (isGranted) {
+            LogScheduler(this).scheduleImmediateAbTestCheck()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         LogScheduler(this).schedulePeriodicaUpload()
+        LogScheduler(this).scheduleImmediateAbTestCheck()
         InitialConfigScheduler(this).scheduleInitialConfigSync()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

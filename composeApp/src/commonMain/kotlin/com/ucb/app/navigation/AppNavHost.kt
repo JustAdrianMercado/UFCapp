@@ -1,6 +1,8 @@
 package com.ucb.app.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,14 +18,27 @@ import com.ucb.app.auth.presentation.screen.VerifyCodeScreen
 import com.ucb.app.auth.presentation.screen.ResetPasswordScreen
 import com.ucb.app.fights.presentation.screen.HomeScreen
 import com.ucb.app.onboarding.presentation.screen.OnboardingScreen
+import com.ucb.app.session.SessionManager
+import org.koin.compose.koinInject
 
 @Composable
 fun AppNavHost() {
     val navController = rememberNavController()
+    val sessionManager: SessionManager = koinInject()
+    val navigateToProfileAfterLogin = remember { mutableStateOf(false) }
+
+    fun navigateFromStar() {
+        if (sessionManager.currentUserId == null) {
+            navigateToProfileAfterLogin.value = true
+            navController.navigate(NavRoute.Login)
+        } else {
+            navController.navigate(NavRoute.Profile)
+        }
+    }
 
     NavHost(
         navController = navController,
-        startDestination = NavRoute.Login
+        startDestination = NavRoute.Onboarding
     ) {
         composable<NavRoute.Profile> {
             ProfileScreen(
@@ -35,10 +50,8 @@ fun AppNavHost() {
                 onNavigateBack = { navController.popBackStack() },
                 onEditProfile = { navController.navigate(NavRoute.ProfileEdit) },
                 onNavigateToLogin = {
-                    navController.navigate(NavRoute.Login) {
-                        popUpTo(NavRoute.Home) {
-                            inclusive = true
-                        }
+                    navController.navigate(NavRoute.Home) {
+                        popUpTo(NavRoute.Profile) { inclusive = true }
                     }
                 }
             )
@@ -57,7 +70,7 @@ fun AppNavHost() {
                 onNavigateToLive = { navController.navigate(NavRoute.Live) },
                 onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
                 onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
-                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onNavigateToProfile = { navigateFromStar() },
                 onSearchClick = { /* Already here or just reload */ }
             )
         }
@@ -68,7 +81,7 @@ fun AppNavHost() {
                 onNavigateToLive = { navController.navigate(NavRoute.Live) },
                 onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
                 onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
-                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onNavigateToProfile = { navigateFromStar() },
                 onSearchClick = { navController.navigate(NavRoute.Fights) }
             )
         }
@@ -78,7 +91,7 @@ fun AppNavHost() {
                 onNavigateToHome = { navController.navigate(NavRoute.Home) },
                 onNavigateToLive = { navController.navigate(NavRoute.Live) },
                 onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
-                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onNavigateToProfile = { navigateFromStar() },
                 onSearchClick = { navController.navigate(NavRoute.Fights) }
             )
         }
@@ -88,7 +101,7 @@ fun AppNavHost() {
                 onNavigateToHome = { navController.navigate(NavRoute.Home) },
                 onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
                 onNavigateToFighters = { navController.navigate(NavRoute.Fighters) },
-                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onNavigateToProfile = { navigateFromStar() },
                 onSearchClick = { navController.navigate(NavRoute.Fights) }
             )
         }
@@ -98,7 +111,7 @@ fun AppNavHost() {
                 onNavigateToHome = { navController.navigate(NavRoute.Home) },
                 onNavigateToLive = { navController.navigate(NavRoute.Live) },
                 onNavigateToRanking = { navController.navigate(NavRoute.Ranking) },
-                onNavigateToProfile = { navController.navigate(NavRoute.Profile) },
+                onNavigateToProfile = { navigateFromStar() },
                 onSearchClick = { navController.navigate(NavRoute.Fights) }
             )
         }
@@ -106,7 +119,13 @@ fun AppNavHost() {
         composable<NavRoute.Login> {
             LoginScreen(
                 onNavigateHome = {
-                    navController.navigate(NavRoute.Home) {
+                    val destination = if (navigateToProfileAfterLogin.value) {
+                        NavRoute.Profile
+                    } else {
+                        NavRoute.Home
+                    }
+                    navigateToProfileAfterLogin.value = false
+                    navController.navigate(destination) {
                         popUpTo(NavRoute.Login) {
                             inclusive = true
                         }

@@ -1,7 +1,7 @@
 package com.ucb.app.config.data.datasource
 
-import com.ucb.app.portafolio.data.datasource.ConfigDao
-import com.ucb.app.portafolio.data.datasource.ConfigEntity
+import com.ucb.app.database.ConfigDao
+import com.ucb.app.database.ConfigEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

@@ -9,15 +9,6 @@
     <string name="login_email">Email Address</string>
     <string name="login_password">Password</string>
     <string name="login_btn">Sign In</string>
-    <string name="github_find">Find</string>
-    <string name="github_title">Find your GitHub Avatar</string>
-    <string name="github_text_hint">Github username</string>
-    <string name="portfolio_title">Firebase Portfolio</string>
-    <string name="label_path">Path</string>
-    <string name="label_value">Value</string>
-    <string name="button_save">Save</string>
-    <string name="button_read">Read</string>
-    <string name="success_message">Success: %1$s</string>
     <string name="error_message">Error: %1$s</string>
 
     <!-- Bottom Nav -->

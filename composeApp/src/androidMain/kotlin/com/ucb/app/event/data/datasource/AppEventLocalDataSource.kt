@@ -1,7 +1,7 @@
 package com.ucb.app.event.data.datasource
 
-import com.ucb.app.portafolio.data.datasource.AppEventDao
-import com.ucb.app.portafolio.data.datasource.AppEventEntity
+import com.ucb.app.database.AppEventDao
+import com.ucb.app.database.AppEventEntity
 
 actual class AppEventLocalDataSource actual constructor(
     private val appEventDao: AppEventDao

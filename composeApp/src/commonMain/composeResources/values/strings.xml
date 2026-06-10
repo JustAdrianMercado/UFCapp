@@ -31,15 +31,6 @@
     <string name="previous">Anterior</string>
     <string name="start">Iniciar</string>
     <string name="next">Siguiente</string>
-    <string name="github_find">Find</string>
-    <string name="github_title">Find your Github Avatar</string>
-    <string name="github_text_hint">GitHub username</string>
-    <string name="portfolio_title">Firebase Portafolio</string>
-    <string name="label_path">Path</string>
-    <string name="label_value">Valor</string>
-    <string name="button_save">Guardar</string>
-    <string name="button_read">Leer</string>
-    <string name="success_message">Éxito: %1$s</string>
     <string name="error_message">Error: %1$s</string>
 
     <!-- Bottom Nav -->

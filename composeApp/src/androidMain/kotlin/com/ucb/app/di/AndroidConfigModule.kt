@@ -5,7 +5,7 @@ import com.ucb.app.config.data.datasource.ConfigLocalDataSource
 import com.ucb.app.config.data.datasource.RemoteConfigDataSource
 import com.ucb.app.config.data.repository.ConfigRepositoryImpl
 import com.ucb.app.config.domain.repository.ConfigRepository
-import com.ucb.app.portafolio.data.datasource.AppDatabase
+import com.ucb.app.database.AppDatabase
 import org.koin.dsl.module
 
 val androidConfigModule = module {

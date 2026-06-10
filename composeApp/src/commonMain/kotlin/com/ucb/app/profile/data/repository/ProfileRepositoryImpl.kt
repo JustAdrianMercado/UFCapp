@@ -1,6 +1,6 @@
 package com.ucb.app.profile.data.repository
 
-import com.ucb.app.portafolio.data.datasource.FirebaseManager
+import com.ucb.app.firebase.FirebaseManager
 import com.ucb.app.profile.domain.model.ProfileModel
 import com.ucb.app.profile.domain.repository.ProfileRepository
 import com.ucb.app.session.SessionManager

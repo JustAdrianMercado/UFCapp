@@ -4,7 +4,7 @@ import com.ucb.app.event.data.datasource.AppEventLocalDataSource
 import com.ucb.app.event.data.datasource.AppEventRemoteDataSource
 import com.ucb.app.event.data.repository.AppEventRepositoryImpl
 import com.ucb.app.event.domain.repository.AppEventRepository
-import com.ucb.app.portafolio.data.datasource.AppDatabase
+import com.ucb.app.database.AppDatabase
 import org.koin.dsl.module
 
 val androidEventModule = module {

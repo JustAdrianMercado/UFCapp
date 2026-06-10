@@ -1,6 +1,6 @@
 package com.ucb.app.event.data.datasource
 
-import com.ucb.app.portafolio.data.datasource.FirebaseManager
+import com.ucb.app.firebase.FirebaseManager
 
 actual class AppEventRemoteDataSource actual constructor(
     private val firebaseManager: FirebaseManager

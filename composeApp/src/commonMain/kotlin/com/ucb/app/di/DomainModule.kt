@@ -12,8 +12,6 @@ import com.ucb.app.live.domain.usecase.GetLiveEventsUseCase
 import com.ucb.app.onboarding.domain.usecase.GetOnboardingCompletedUseCase
 import com.ucb.app.onboarding.domain.usecase.GetOnboardingPagesUseCase
 import com.ucb.app.onboarding.domain.usecase.SaveOnboardingCompletedUseCase
-import com.ucb.app.portafolio.domain.usecase.GetPortafolioDataUseCase
-import com.ucb.app.portafolio.domain.usecase.SavePortafolioDataUseCase
 import com.ucb.app.profile.domain.usecase.EditProfileUseCase
 import com.ucb.app.profile.domain.usecase.GetProfileUseCase
 import com.ucb.app.ranking.domain.usecase.GetRankingsUseCase
@@ -21,9 +19,6 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val domainModule = module {
-    singleOf(::SavePortafolioDataUseCase)
-    singleOf(::GetPortafolioDataUseCase)
-
     singleOf(::GetLocalConfigUseCase)
     singleOf(::SyncInitialConfigUseCase)
     singleOf(::RegisterAppEventUseCase)

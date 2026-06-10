@@ -1,6 +1,6 @@
 package com.ucb.app.event.data.datasource
 
-import com.ucb.app.portafolio.data.datasource.AppEventDao
+import com.ucb.app.database.AppEventDao
 
 actual class AppEventLocalDataSource actual constructor(appEventDao: AppEventDao) {
     actual suspend fun saveEvent(type: String, timestamp: Long): Long {
